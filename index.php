@@ -20,7 +20,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
         // Get the current post
         global $post;
 
-        // Check if the current page is a jobs overview page_attributes_dropdown_pages_args
+        // Check if the current page is a jobs overview page
         if( is_singular( $post ) && has_shortcode( $post->post_content, 'jobs') ) {
 
             // Include the all jobs schema
