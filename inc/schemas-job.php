@@ -84,8 +84,6 @@ ob_start();
 // Get the output
 $job_schema = ob_get_clean();
 
-// Minify the output
-$job_schema = preg_replace('/\s+/', '', $job_schema);
 
 // Output the schema
 echo $job_schema;
