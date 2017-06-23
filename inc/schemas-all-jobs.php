@@ -113,7 +113,7 @@ if( $total_post_count > 0 ){
     ?>
         ],
         "itemListOrder": "https://schema.org/ItemListOrderAscending",
-        "name": "Gaelic jobs"
+        "name": "<?php echo get_bloginfo('name'); ?> jobs"
     }
     </script>
     <?php
