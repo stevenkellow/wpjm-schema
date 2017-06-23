@@ -120,6 +120,9 @@ if( $total_post_count > 0 ){
 
     // Get the output
     $all_jobs_schema = ob_get_clean();
+    
+    // Minify the output
+    $all_jobs_schema = preg_replace('/\s+/', '', $all_jobs_schema);
 
     // Output the schema
     echo $all_jobs_schema;
