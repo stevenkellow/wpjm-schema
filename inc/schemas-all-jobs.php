@@ -32,7 +32,7 @@ if( $total_post_count > 0 ){
 
         // Get general job information
         $title = get_the_title(); // Job title
-        $permalink = get_the_permalink(); // Job permalink
+        $permalink = get_site_url() . '/jobs/?name=' . $post->post_name; // Job permalink
         $excerpt = get_the_excerpt( $post->ID ); // Get an excerpt of the job description
         $app_deadline = get_post_meta($post->ID, '_application_deadline', true); // If the application deadline plugin exists, use set deadline
         if( ! $app_deadline ){
