@@ -8,7 +8,7 @@
 ob_start();
 
 // Get a query of all jobs that are available
-$all_jobs = new WP_Query( array( 'post_type' => 'job_listing', 'post_status' => 'publish' ) );
+$all_jobs = new WP_Query( array( 'post_type' => 'job_listing', 'post_status' => 'publish', 'posts_per_page' => -1 ) );
 
 // Total post count
 $total_post_count = count( $all_jobs->posts );
