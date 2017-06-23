@@ -10,6 +10,9 @@ Text Domain: wpjm-schema
 Domain Path: /languages
 */
 
+// Make sure plugin check will work
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
 // Check the WPJM plugin exists
 if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     
