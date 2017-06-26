@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WPJM Schema
-Plugin URI: https://wordpress.org/plugins/health-check/
+Plugin URI: https://wordpress.org/plugins/wpjm-schema/
 Description: Adds Schema.org markup to your WP Job Manager pages
 Version: 0.1
 Author: Steven Kellow
