@@ -34,6 +34,8 @@ if( $total_post_count > 0 ){
         $title = $post->post_title; // Job title
         $permalink = get_site_url() . '/jobs/?name=' . $post->post_name; // Job permalink
         $excerpt = $post->post_excerpt; // Get an excerpt of the job description
+        $date = date( 'Y-m-d', strtotime( $post->post_date ) ); // Get the date the job was posted
+        
         $app_deadline = get_post_meta($post->ID, '_application_deadline', true); // If the application deadline plugin exists, use set deadline
         if( ! $app_deadline ){
             $app_deadline = get_post_meta($post->ID, '_job_expires', true); // If no deadline set, just get the job expiry date
@@ -97,7 +99,7 @@ if( $total_post_count > 0 ){
                     "name" : "<?php echo $company_name; ?>"
                 },
                 "title": "<?php echo $title; ?>",
-                "datePosted": "<?php echo get_the_date( 'Y-m-d', $post->ID ); ?>",
+                "datePosted": "<?php echo $date; ?>",
                 "validThrough": "<?php echo $app_deadline; ?>",
                 "url":"<?php echo $permalink; ?>"
             }
