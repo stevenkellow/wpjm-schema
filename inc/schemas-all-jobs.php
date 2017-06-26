@@ -45,31 +45,13 @@ if( $total_post_count > 0 ){
         if ( get_option( 'job_manager_enable_categories' ) ) {
             $job_category = wp_get_post_terms($post->ID, 'job_listing_category', array("fields" => "names"))[0]; // Job category
         }
-        // Check if job types are enabled for job listings
+        
+		// Check if job types are enabled for job listings
         if( get_option( 'job_manager_enable_types') ){
-            $specified_job_type = get_the_job_type()->name; // Type of job
-
-            // Convert default job types to Google recommended values
-            switch( $specified_job_type ){
-                case 'Freelance':
-                    $job_type = 'CONTRACTOR';
-                    break;
-                case 'Full time':
-                    $job_type = 'FULL_TIME';
-                    break;
-                case 'Internship':
-                    $job_type = 'INTERN';
-                    break;
-                case 'Part time':
-                    $job_type = 'PART_TIME';
-                    break;
-                case 'Temporary':
-                    $job_type = 'TEMPORARY';
-                    break;
-                default:
-                    $job_type = 'OTHER';
-            }
-        }
+			
+			$job_type = wpjm_schema_get_the_job_types( $post->ID );
+			
+		}
 
         // Get hiring organization details
         $company_name = get_the_company_name(); // Company name
@@ -98,7 +80,7 @@ if( $total_post_count > 0 ){
                 "@type": "JobPosting",
                 <?php if( ! empty( $image ) ){ echo '"image": "' . $image . '",'; }
                 if( ! empty( $description ) ){ echo '"description": "' . $description . '",'; }
-                if( ! empty( $job_type ) ){ echo '"employmentType": "' . $job_type . '",'; }
+                if( ! empty( $job_type ) ){ echo '"employmentType": ' . $job_type . ','; } // Note we add the double quotes earlier here in case of array
                 if( ! empty( $job_category ) ){ echo '"industry": "' . $job_category . '",'; } ?>
                 "jobLocation": {
                     "@type": "Place",

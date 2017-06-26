@@ -15,6 +15,9 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 // Check the WPJM plugin exists
 if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
+	
+	// Call in custom functions for output
+	include_once( plugin_dir_path( __FILE__ ) . 'inc/patch-functions.php' );
     
     // Add custom schema info to the WordPress header
     add_action('wp_head', 'wpjm_schema_print');
