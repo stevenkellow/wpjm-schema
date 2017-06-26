@@ -4,13 +4,18 @@
 *
 */
 
-// Start the output buffer
-ob_start();
+// Call in the post info
+global $post;
 
-    global $post;
+// Only show the schema if the job is active as per Google guidance - https://developers.google.com/search/docs/data-types/job-postings#create-job-postings
+
+if( $post->post_status == 'publish' ){
+
+    // Start the output buffer
+    ob_start();
 
     // Get general job information
-	$title = $post->post_title; // Job title
+    $title = $post->post_title; // Job title
     $permalink = get_the_permalink(); // Job permalink
     $excerpt = $post->post_excerpt; // Get an excerpt of the job description
     $date = date( 'Y-m-d', strtotime( $post->post_date ) ); // Get the date the job was posted
@@ -45,47 +50,50 @@ ob_start();
     $longitude = get_post_meta($post->ID, 'geolocation_long', true); // Geolocation longitude
     $country =	get_post_meta($post->ID, 'geolocation_country_short', true); // Geolocation country
 
-?>
+    ?>
 
-<script type="application/ld+json">
-{
-	"@context": "http://schema.org",
-	"@type": "JobPosting",
-	<?php if( ! empty( $image ) ){ echo '"image": "' . $image . '",'; }
-	if( ! empty( $excerpt ) ){ echo '"description": "' . $excerpt . '",'; }
-	if( ! empty( $job_type ) ){ echo '"employmentType": "' . $job_type . '",'; }
-    if( ! empty( $job_category ) ){ echo '"industry": "' . $job_category . '",'; } ?>
-	"jobLocation": {
-		"@type": "Place",
-	<?php if( $geolocated == 1 ){ ?>
-		"geo": {
-			"@type": "GeoCoordinates",
-			"latitude": "<?php echo $latitude; ?>",
-			"longitude": "<?php echo $longitude; ?>",
-			"addressCountry": "<?php echo $country; ?>"
-		},<?php } ?>
-		"name": "<?php echo $location; ?>"
-	},
-	"hiringOrganization": {
-		"@type" : "Organization",
-			<?php if( ! empty( $company_url ) ){ echo '"url": "' . $company_url . '",'; }
-			if( ! empty( $company_twitter ) ){ ?>
-			"sameAs": [<?php echo '"' . $company_twitter . '"';?>],<?php }
-			if( ! empty( $company_desc ) ){ echo '"description": "' . $company_desc . '",'; } ?>
-			"name" : "<?php echo $company_name; ?>"
-	},
-	"title": "<?php echo $title; ?>",
-	"datePosted": "<?php echo $date; ?>",
-	"validThrough": "<?php echo $app_deadline; ?>",
-	"url":"<?php echo $permalink; ?>"
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "JobPosting",
+        <?php if( ! empty( $image ) ){ echo '"image": "' . $image . '",'; }
+        if( ! empty( $excerpt ) ){ echo '"description": "' . $excerpt . '",'; }
+        if( ! empty( $job_type ) ){ echo '"employmentType": "' . $job_type . '",'; }
+        if( ! empty( $job_category ) ){ echo '"industry": "' . $job_category . '",'; } ?>
+        "jobLocation": {
+            "@type": "Place",
+        <?php if( $geolocated == 1 ){ ?>
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "<?php echo $latitude; ?>",
+                "longitude": "<?php echo $longitude; ?>",
+                "addressCountry": "<?php echo $country; ?>"
+            },<?php } ?>
+            "name": "<?php echo $location; ?>"
+        },
+        "hiringOrganization": {
+            "@type" : "Organization",
+                <?php if( ! empty( $company_url ) ){ echo '"url": "' . $company_url . '",'; }
+                if( ! empty( $company_twitter ) ){ ?>
+                "sameAs": [<?php echo '"' . $company_twitter . '"';?>],<?php }
+                if( ! empty( $company_desc ) ){ echo '"description": "' . $company_desc . '",'; } ?>
+                "name" : "<?php echo $company_name; ?>"
+        },
+        "title": "<?php echo $title; ?>",
+        "datePosted": "<?php echo $date; ?>",
+        "validThrough": "<?php echo $app_deadline; ?>",
+        "url":"<?php echo $permalink; ?>"
+    }
+    </script>
+
+    <?php
+
+    // Get the output
+    $job_schema = ob_get_clean();
+
+
+    // Output the schema
+    echo $job_schema;
+    
+    
 }
-</script>
-
-<?php
-
-// Get the output
-$job_schema = ob_get_clean();
-
-
-// Output the schema
-echo $job_schema;
