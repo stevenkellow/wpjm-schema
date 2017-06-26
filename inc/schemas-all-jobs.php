@@ -49,6 +49,7 @@ if( $total_post_count > 0 ){
 		// Check if job types are enabled for job listings
         if( get_option( 'job_manager_enable_types') ){
 			
+            // Get the job types JSON formatted
 			$job_type = wpjm_schema_get_the_job_types( $post->ID );
 			
 		}

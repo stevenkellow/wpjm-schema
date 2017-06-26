@@ -28,7 +28,7 @@ function get_the_job_types( $post = null ) {
 /**
  * wpjm_schema_output_friendly_job_type
  *
- * Converts the defauly job types to Google specified definitions - https://developers.google.com/search/docs/data-types/job-postings#definitions
+ * Converts the default job types to Google specified definitions - https://developers.google.com/search/docs/data-types/job-postings#definitions
  *
  * @param string $specified_job_type - the name of the job type entered.
  * @return string $job_type - Converted job type
@@ -56,6 +56,7 @@ function wpjm_schema_output_friendly_job_type( $specified_job_type ){
 			$job_type = '"OTHER"';
 	}
 	
+    // Return the formatted job type
 	return $job_type;
 }
 
@@ -84,9 +85,8 @@ function wpjm_schema_get_the_job_types( $post_id ){
 			
 			// Get the formatted job type
 			$new_job_type = wpjm_schema_output_friendly_job_type( $individual_job_type->name );
-			
-			echo $individual_job_type->name;
-			
+            
+            // Add formatted job type to our array string			
 			$job_type .= $new_job_type;
 			
 			// Increment the counter
@@ -105,14 +105,13 @@ function wpjm_schema_get_the_job_types( $post_id ){
 		$job_type .= ']';
 		
 		
-		
-		
 	} else {
 		
-		
+		// For the one job type, output the friendly version
 		$job_type = wpjm_schema_output_friendly_job_type( $attached_job_types->name );
 		
 	}
 	
+    // Return the job type
 	return $job_type;
 }
