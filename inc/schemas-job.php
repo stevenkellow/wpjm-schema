@@ -17,7 +17,7 @@ if( $post->post_status == 'publish' ){
     // Get general job information
     $title = $post->post_title; // Job title
     $permalink = get_the_permalink(); // Job permalink
-    $excerpt = $post->post_excerpt; // Get an excerpt of the job description
+    $description = $post->post_content; // Get the job description
     $date = date( 'Y-m-d', strtotime( $post->post_date ) ); // Get the date the job was posted
 
     $app_deadline = get_post_meta($post->ID, '_application_deadline', true); // If the application deadline plugin exists, use set deadline
@@ -57,7 +57,7 @@ if( $post->post_status == 'publish' ){
         "@context": "http://schema.org",
         "@type": "JobPosting",
         <?php if( ! empty( $image ) ){ echo '"image": "' . $image . '",'; }
-        if( ! empty( $excerpt ) ){ echo '"description": "' . $excerpt . '",'; }
+        if( ! empty( $description ) ){ echo '"description": "' . $description . '",'; }
         if( ! empty( $job_type ) ){ echo '"employmentType": "' . $job_type . '",'; }
         if( ! empty( $job_category ) ){ echo '"industry": "' . $job_category . '",'; } ?>
         "jobLocation": {
@@ -78,6 +78,11 @@ if( $post->post_status == 'publish' ){
                 "sameAs": [<?php echo '"' . $company_twitter . '"';?>],<?php }
                 if( ! empty( $company_desc ) ){ echo '"description": "' . $company_desc . '",'; } ?>
                 "name" : "<?php echo $company_name; ?>"
+        },
+        "identifier": {
+            "@type": "PropertyValue",
+            "name": "<?php echo $company_name; ?>",
+            "value": "<?php echo $post->ID; ?>"
         },
         "title": "<?php echo $title; ?>",
         "datePosted": "<?php echo $date; ?>",
