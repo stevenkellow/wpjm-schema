@@ -10,6 +10,9 @@ Text Domain: wpjm-schema
 Domain Path: /languages
 */
 
+// Exit if accessed directly
+if( ! defined( 'ABSPATH') ){ exit; }
+
 // Make sure plugin check will work
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
