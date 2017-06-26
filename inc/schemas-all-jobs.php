@@ -47,7 +47,28 @@ if( $total_post_count > 0 ){
         }
         // Check if job types are enabled for job listings
         if( get_option( 'job_manager_enable_types') ){
-            $job_type = get_the_job_type()->name; // Type of job
+            $specified_job_type = get_the_job_type()->name; // Type of job
+
+            // Convert default job types to Google recommended values
+            switch( $specified_job_type ){
+                case 'Freelance':
+                    $job_type = 'CONTRACTOR';
+                    break;
+                case 'Full time':
+                    $job_type = 'FULL_TIME';
+                    break;
+                case 'Internship':
+                    $job_type = 'INTERN';
+                    break;
+                case 'Part time':
+                    $job_type = 'PART_TIME';
+                    break;
+                case 'Temporary':
+                    $job_type = 'TEMPORARY';
+                    break;
+                default:
+                    $job_type = 'OTHER';
+            }
         }
 
         // Get hiring organization details
