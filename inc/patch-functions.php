@@ -108,7 +108,7 @@ function wpjm_schema_get_the_job_types( $post_id ){
 	} else {
 		
 		// For the one job type, output the friendly version
-		$job_type = wpjm_schema_output_friendly_job_type( $attached_job_types->name );
+		$job_type = wpjm_schema_output_friendly_job_type( $attached_job_types[0]->name );
 		
 	}
 	

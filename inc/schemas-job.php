@@ -62,7 +62,7 @@ if( $post->post_status == 'publish' ){
         "@type": "JobPosting",
         <?php if( ! empty( $image ) ){ echo '"image": "' . $image . '",'; }
         if( ! empty( $description ) ){ echo '"description": "' . $description . '",'; }
-        if( ! empty( $job_type ) ){ echo '"employmentType": "' . $job_type . '",'; }
+        if( ! empty( $job_type ) ){ echo '"employmentType": ' . $job_type . ','; }
         if( ! empty( $job_category ) ){ echo '"industry": "' . $job_category . '",'; } ?>
         "jobLocation": {
             "@type": "Place",
