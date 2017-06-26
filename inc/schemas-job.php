@@ -10,9 +10,9 @@ ob_start();
     global $post;
 
     // Get general job information
-	$title = get_the_title(); // Job title
+	$title = $post->post_title; // Job title
     $permalink = get_the_permalink(); // Job permalink
-    $excerpt = get_the_excerpt( $post->ID ); // Get an excerpt of the job description
+    $excerpt = $post->post_excerpt; // Get an excerpt of the job description
     $app_deadline = get_post_meta($post->ID, '_application_deadline', true); // If the application deadline plugin exists, use set deadline
     if( ! $app_deadline ){
         $app_deadline = get_post_meta($post->ID, '_job_expires', true); // If no deadline set, just get the job expiry date
