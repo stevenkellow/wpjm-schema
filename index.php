@@ -22,17 +22,18 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     // Add custom schema info to the WordPress header
     add_action('wp_head', 'wpjm_schema_print');
     function wpjm_schema_print(){
-    
-        // Get the current post
-        global $post;
 
-        // Check if the current page is a jobs overview page
+        // Check if the current page is a jobs overview page - deprecated because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
+        
+        /* Get the current post
+        global $post;
+        
         if( is_singular( $post ) && has_shortcode( $post->post_content, 'jobs') ) {
 
             // Include the all jobs schema
             include_once( plugin_dir_path( __FILE__ ) . 'inc/schemas-all-jobs.php' );
 
-        }
+        } */
 
         // Check if the page is a job listing
         if( 'job_listing' == get_post_type() ){
