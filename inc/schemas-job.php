@@ -48,14 +48,17 @@ if( $post->post_status == 'publish' ){
     $company_twitter = 'https://twitter.com/' . get_the_company_twitter(); // Company Twitter account
     $image = get_the_post_thumbnail_url( $post->ID, 'full' ); // Company logo
 
-    // Get the general job location
-    $location = get_post_meta($post->ID, '_job_location', true); // General location
+    // Get geolocation info
+	$location = get_post_meta($post->ID, '_job_location', true); // General location
+	
+	$geolocated = get_post_meta($post->ID, 'geolocated', true); // Check whether the job location was geolocated
+	$latitude = get_post_meta($post->ID, 'geolocation_lat', true); // Geolocation latitude
+	$longitude = get_post_meta($post->ID, 'geolocation_long', true); // Geolocation longitude
+	$country =	get_post_meta($post->ID, 'geolocation_country_short', true); // Geolocation country
 
-    // Get geolocation info if the WPJM Geolocation plugin is installed
-    $geolocated = get_post_meta($post->ID, 'geolocated', true); // Check whether the job location was geolocated
-    $latitude = get_post_meta($post->ID, 'geolocation_lat', true); // Geolocation latitude
-    $longitude = get_post_meta($post->ID, 'geolocation_long', true); // Geolocation longitude
-    $country =	get_post_meta($post->ID, 'geolocation_country_short', true); // Geolocation country
+	$city = get_post_meta( $post->ID, 'geolocation_city', true); // City
+	$region = get_post_meta( $post->ID, 'geolocation_state_long', true ); // Region
+	$postal_code = get_post_meta( $post->ID, 'geolocation_postcode', true); // Postal or ZIP code
 
     ?>
 
@@ -66,18 +69,22 @@ if( $post->post_status == 'publish' ){
         <?php if( ! empty( $image ) ){ echo '"image": "' . $image . '",'; }
         if( ! empty( $description ) ){ echo '"description": "' . $description . '",'; }
         if( ! empty( $job_type ) ){ echo '"employmentType": ' . $job_type . ','; }
-        if( ! empty( $job_category ) ){ echo '"industry": "' . $job_category . '",'; } ?>
+        if( ! empty( $job_category ) ){ echo '"industry": ' . $job_category . ','; } ?>
         "jobLocation": {
-            "@type": "Place",
-        <?php if( $geolocated == 1 ){ ?>
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "<?php echo $latitude; ?>",
-                "longitude": "<?php echo $longitude; ?>",
-                "addressCountry": "<?php echo $country; ?>"
-            },<?php } ?>
-            "name": "<?php echo $location; ?>"
-        },
+			"@type": "Place",
+			<?php if( $geolocated == 1 ){ ?>
+			"address": {
+                "@type": "PostalAddress",
+			<?php if( ! empty( $city ) ){ ?>"addressLocality": "<?php echo $city; ?>",<?php } else { if( ! empty( $location ) ){ ?>"addressLocality": "<?php echo $city; ?>",<?php } } ?>
+				<?php if( ! empty( $region ) ){ ?>"addressRegion": "<?php echo $region; ?>",<?php } ?>
+				"addressCountry": "<?php echo $country; ?>"
+			},
+			<?php if( ! empty( $latitude ) && ! empty( $longitude ) ){ ?>"geo": {
+				"@type": "GeoCoordinates",
+				"latitude": "<?php echo $latitude; ?>",
+				"longitude": "<?php echo $longitude; ?>"				
+			}<?php } } ?>
+		},
         "hiringOrganization": {
             "@type" : "Organization",
                 <?php if( ! empty( $company_url ) ){ echo '"url": "' . $company_url . '",'; }
