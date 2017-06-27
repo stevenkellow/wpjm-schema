@@ -4,6 +4,9 @@
 *
 */
 
+// Exit if accessed directly
+if( ! defined( 'ABSPATH') ){ exit; }
+
 // Start output buffer
 ob_start();
 

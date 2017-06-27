@@ -1,7 +1,13 @@
 <?php
+/*
+*   Functions needed to get job types and to output them - one is submitted to core but the others are custom
+*
+*/
+
+// Exit if accessed directly
+if( ! defined( 'ABSPATH') ){ exit; }
 
 // Bring in the get_the_job_types function if it isn't included in WPJM already
-
 if( ! function_exists( 'get_the_job_types' ) ){
 /**
  * Gets the job type for the listing. - as defined here https://github.com/Automattic/WP-Job-Manager/commit/3dd90f8363fe060808300f201389893677cbcd2c
