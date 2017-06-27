@@ -79,9 +79,10 @@ function wpjm_schema_get_the_job_types( $post_id ){
 	$attached_job_types = get_the_job_types( $post_id );
 	$job_type_count = count( $attached_job_types );
 	
-	$job_type_counter = 0;
-	
 	if( $job_type_count > 1 ){
+        
+        // Set a counter for our upcoming loop
+        $job_type_counter = 0;
 		
 		// Open the job types array
 		$job_type = '[';
