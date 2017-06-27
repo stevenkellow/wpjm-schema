@@ -61,7 +61,12 @@ if( $total_post_count > 0 ){
         $company_name = get_the_company_name(); // Company name
         $company_url = get_the_company_website(); // Company URL
         $company_desc = get_post_meta($post->ID, '_company_tagline', true); // Tagline / description
-        $company_twitter = 'https://twitter.com/' . get_the_company_twitter(); // Company Twitter account
+        
+        $twitter_username = get_the_company_twitter(); // Company Twitter account
+        // Check Twitter is set before using it
+        if( $twitter_username ){
+            $company_twitter = 'https://twitter.com/' . $twitter_username;
+        }
         $image = get_the_post_thumbnail_url( $post->ID, 'full' ); // Company logo
 
         // Get geolocation info
