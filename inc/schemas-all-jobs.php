@@ -139,6 +139,12 @@ if( $total_post_count > 0 ){
         "itemListOrder": "https://schema.org/ItemListOrderAscending",
         "name": "<?php echo get_bloginfo('name'); ?> jobs"
     }
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "name": "<?php echo get_bloginfo('name'); ?>",
+      "url": "<?php echo get_site_url(); ?>"
+    }
     </script>
     <?php
 

@@ -44,6 +44,7 @@ v 0.3
 - Support multiple job categories (used as Industry)
 - Fix company logo retrieval
 - Get more geolocation data
+- Add website details to Schema
 
 v 0.2
 - Added support for XML sitemaps
