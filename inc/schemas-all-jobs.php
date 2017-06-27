@@ -107,7 +107,8 @@ if( $total_post_count > 0 ){
                     <?php if( ! empty( $company_url ) ){ echo '"url": "' . $company_url . '",'; }
                     if( ! empty( $company_twitter ) ){ ?>
                     "sameAs": [<?php echo '"' . $company_twitter . '"';?>],<?php }
-                    if( ! empty( $company_desc ) ){ echo '"description": "' . $company_desc . '",'; } ?>
+                    if( ! empty( $company_desc ) ){ echo '"description": "' . $company_desc . '",'; }
+                    if( ! empty( $image ) ){ echo '"logo": "' . $image . '",'; } ?>
                     "name" : "<?php echo $company_name; ?>"
                 },
                 "identifier": {
