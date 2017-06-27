@@ -3,7 +3,7 @@
 Plugin Name: WPJM Schema
 Plugin URI: https://wordpress.org/plugins/wpjm-schema/
 Description: Adds Schema.org markup to your WP Job Manager pages
-Version: 0.2
+Version: 0.2-master
 Author: Steven Kellow
 Author URI: https://www.stevenkellow.com
 Text Domain: wpjm-schema
@@ -56,6 +56,8 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
 	add_action( 'save_post_job_listing', 'wpjm_schema_generate_sitemap' );
 	register_activation_hook(  __FILE__, 'wpjm_schema_generate_sitemap' );
     
+    // Add a CRON job to run with the expired jobs hook to make sure sitemap is updated if jobs expire
+	add_action( 'job_manager_check_for_expired_jobs', 'wpjm_schema_generate_sitemap' );
     
     
 } else {
