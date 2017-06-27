@@ -68,13 +68,17 @@ if( $total_post_count > 0 ){
         $location = get_post_meta($post->ID, '_job_location', true); // General location
 
         $geolocated = get_post_meta($post->ID, 'geolocated', true); // Check whether the job location was geolocated
-        $latitude = get_post_meta($post->ID, 'geolocation_lat', true); // Geolocation latitude
-        $longitude = get_post_meta($post->ID, 'geolocation_long', true); // Geolocation longitude
-        $country =	get_post_meta($post->ID, 'geolocation_country_short', true); // Geolocation country
+        
+        // If we've geolocated the job, get more information
+        if( $geolocated == 1 ){
+            $latitude = get_post_meta($post->ID, 'geolocation_lat', true); // Geolocation latitude
+            $longitude = get_post_meta($post->ID, 'geolocation_long', true); // Geolocation longitude
+            $country =	get_post_meta($post->ID, 'geolocation_country_short', true); // Geolocation country
 
-        $city = get_post_meta( $post->ID, 'geolocation_city', true); // City
-        $region = get_post_meta( $post->ID, 'geolocation_state_long', true ); // Region
-        $postal_code = get_post_meta( $post->ID, 'geolocation_postcode', true); // Postal or ZIP code
+            $city = get_post_meta( $post->ID, 'geolocation_city', true); // City
+            $region = get_post_meta( $post->ID, 'geolocation_state_long', true ); // Region
+            $postal_code = get_post_meta( $post->ID, 'geolocation_postcode', true); // Postal or ZIP code
+        }
 
     ?>
             {

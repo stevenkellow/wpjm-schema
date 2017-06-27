@@ -43,6 +43,7 @@ v 0.3
 - Ping Google when sitemap updated
 - Support multiple job categories (used as Industry)
 - Fix company logo retrieval
+- Get more geolocation data
 
 v 0.2
 - Added support for XML sitemaps

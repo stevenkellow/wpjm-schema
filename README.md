@@ -43,6 +43,7 @@ The plugin works straight out of the box, so there's no other options to configu
 - Ping Google when sitemap updated
 - Support multiple job categories (used as Industry)
 - Fix company logo retrieval
+- Get more geolocation data
 #### v 0.2
 - Added support for XML sitemaps
 - Follow Google guidelines more closely
