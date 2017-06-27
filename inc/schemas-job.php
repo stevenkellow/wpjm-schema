@@ -46,7 +46,7 @@ if( $post->post_status == 'publish' ){
     $company_url = get_the_company_website(); // Company URL
     $company_desc = get_post_meta($post->ID, '_company_tagline', true); // Tagline / description
     $company_twitter = 'https://twitter.com/' . get_the_company_twitter(); // Company Twitter account
-    $image = get_post_meta($post->ID, '_company_logo', true); // Company login
+    $image = get_the_post_thumbnail_url( $post->ID, 'full' ); // Company logo
 
     // Get the general job location
     $location = get_post_meta($post->ID, '_job_location', true); // General location
