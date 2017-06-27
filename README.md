@@ -39,12 +39,16 @@ Activate the plugin from the Plugins menu within the WordPress admin.
 The plugin works straight out of the box, so there's no other options to configure.
 
 ### Changelog 
+#### v 0.3
+- Ping Google when sitemap updated
+- Support multiple job categories (used as Industry)
+- Fix company logo retrieval
 #### v 0.2
-* Added support for XML sitemaps
-* Follow Google guidelines more closely
-** Deprecate list schemas
-** Hide schemas on expired listings
-** Introduce identifier attribute
-** Use suggested employment types
-* Simplify DB calls by avoiding get_the functions where possible
-* Support multiple job listing types
+- Added support for XML sitemaps
+- Follow Google guidelines more closely
+   * Deprecate list schemas
+   * Hide schemas on expired listings
+   * Introduce identifier attribute
+   * Use suggested employment types
+- Simplify DB calls by avoiding get_the functions where possible
+- Support multiple job listing types
