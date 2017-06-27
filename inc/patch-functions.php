@@ -122,3 +122,56 @@ function wpjm_schema_get_the_job_types( $post_id ){
     // Return the job type
 	return $job_type;
 }
+
+/**
+ * wpjm_schema_get_the_job_categories
+ *
+ * Runs the logic to decide whether to output job categories as an array or string
+ *
+ * @param int $post_id - the current post in the loop
+ * @return string $job_category - Converted job category as array or string
+ */
+function wpjm_schema_get_the_job_categories( $post_id ){
+	// Check how many job categories there are
+	$attached_job_categories = wp_get_post_terms($post_id, 'job_listing_category', array('fields' => 'names'));
+	$job_category_count = count( $attached_job_categories );
+	
+	$job_category_counter = 0;
+	
+	if( $job_category_count > 1 ){
+		
+		// Open the job categories array
+		$job_category = '[';
+		
+		// Add each individual job category to an array
+		foreach( $attached_job_categories as $individual_job_category ){
+            
+            // Add formatted job category to our array string			
+			$job_category .= '"' . $individual_job_category . '"';
+			
+			// Increment the counter
+			$job_category_counter++;
+		
+			// If there's more job categories to add put in a comma
+			if( $job_category_counter !== $job_category_count ){
+				
+				$job_category .= ',';
+				
+			}
+			
+		}
+		
+		// Close the job category array
+		$job_category .= ']';
+		
+		
+	} else {
+		
+		// For the one job category, output it
+		$job_category = '"' . $attached_job_categories[0] . '"';
+		
+	}
+	
+    // Return the job category
+	return $job_category;
+}

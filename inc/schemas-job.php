@@ -30,14 +30,14 @@ if( $post->post_status == 'publish' ){
 
     // Check if categories are enabled for job listings
     if ( get_option( 'job_manager_enable_categories' ) ) {
-        $job_category = wp_get_post_terms($post->ID, 'job_listing_category', array("fields" => "names"))[0]; // Job category
+        $job_category = wpjm_schema_get_the_job_categories( $post->ID ); // Job category formatted as 'industry'
     }
     
     // Check if job types are enabled for job listings
     if( get_option( 'job_manager_enable_types') ){
 
         // Get the job types JSON formatted
-        $job_type = wpjm_schema_get_the_job_types( $post->ID );
+        $job_type = wpjm_schema_get_the_job_types( $post->ID ); // Job type formatted as 'employmentType'
 
     }
 
