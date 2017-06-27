@@ -25,15 +25,6 @@ foreach( $all_jobs->posts as $post ){
     $sitemap .= '<url>';
     $sitemap .= '<loc>' . get_the_permalink( $post->ID ) . '</loc>';
     $sitemap .= '<lastmod>' . date( 'c', strtotime( $post->post_modified_gmt ) ) . '</lastmod>';
-    
-    // Check if post is featured and if so add a higher priority
-    $featured = get_post_meta( $post->ID, '_featured', true );
-    if( $featured == 1 ){
-        
-        $sitemap .= '<priority>0.8</priority>';
-        
-    }
-    
     $sitemap .= '</url>';
   
 }
