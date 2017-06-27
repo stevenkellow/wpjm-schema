@@ -108,13 +108,15 @@ if( $post->post_status == 'publish' ){
         "validThrough": "<?php echo $app_deadline; ?>",
         "url":"<?php echo $permalink; ?>"
     }
+    </script>
+<script type="application/ld+json">
     {
       "@context": "http://schema.org",
       "@type": "WebSite",
       "name": "<?php echo get_bloginfo('name'); ?>",
       "url": "<?php echo get_site_url(); ?>"
     }
-    </script>
+</script>
 
     <?php
 
