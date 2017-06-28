@@ -32,6 +32,9 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
         global $post;
         
         if( is_singular( $post ) && has_shortcode( $post->post_content, 'jobs') ) {
+        
+            // Set a variable to say we're on a multi page
+            $multi_page = true;
 
             // Include the all jobs schema
             include_once( plugin_dir_path( __FILE__ ) . 'inc/schemas-all-jobs.php' );

@@ -9,7 +9,13 @@ if( ! defined( 'ABSPATH') ){ exit; }
 
 // Get general job information
 $title = $post->post_title; // Job title
-$permalink = get_the_permalink(); // Job permalink
+
+// Check what permalink to show
+if( isset( $multi_page ) || $multi_page == true ){
+    $permalink = get_site_url() . '/job?name=' . $post->post_name; // Create a dynamic url to the main jobs page that will redirect to the job listing page
+} else {
+    $permalink = get_the_permalink(); // Get absolute permalink
+}
 $description = $post->post_content; // Get the job description
 $date = date( 'Y-m-d', strtotime( $post->post_date ) ); // Get the date the job was posted
 
