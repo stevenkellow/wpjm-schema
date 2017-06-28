@@ -7,28 +7,39 @@
 // Exit if accessed directly
 if( ! defined( 'ABSPATH') ){ exit; }
 
-// Bring in the get_the_job_types function if it isn't included in WPJM already
-if( ! function_exists( 'get_the_job_types' ) ){
+// Bring in the wpjm_get_the_job_types function if it isn't included in WPJM already
+if( ! function_exists( 'wpjm_get_the_job_types' ) ){
 /**
- * Gets the job type for the listing. - as defined here https://github.com/Automattic/WP-Job-Manager/commit/3dd90f8363fe060808300f201389893677cbcd2c
+ * Gets the job type for the listing. - as defined here https://github.com/Automattic/WP-Job-Manager/blob/d9d1d79bf9b1ebf3ab43c06bc8c3e7aa9644519e/wp-job-manager-template.php
  *
- * @since 1.26.2
+ * @since 1.26.3
  *
  * @param int|WP_Post $post (default: null).
  * @return false|array
  */
-function get_the_job_types( $post = null ) {
+function wpjm_get_the_job_types( $post = null ) {
 	$post = get_post( $post );
 
 	if ( 'job_listing' !== $post->post_type ) {
-		return;
+		return false;
 	}
 
 	$types = get_the_terms( $post->ID, 'job_listing_type' );
 
-	return apply_filters( 'the_job_types', $types, $post );
-}
+	// Return single if not enabled.
+	if ( ! empty( $types ) && ! job_manager_multi_job_type() ) {
+		$types = array( current( $types ) );
+	}
 
+	/**
+	 * Filter the returned job types for a post.
+	 *
+	 * @since 1.26.3
+	 *
+	 * @param array   $types
+	 * @param WP_Post $post
+	 */
+	return apply_filters( 'wpjm_the_job_types', $types, $post );
 }
 
 /**
@@ -76,7 +87,7 @@ function wpjm_schema_output_friendly_job_type( $specified_job_type ){
  */
 function wpjm_schema_get_the_job_types( $post_id ){
 	// Check how many job types there are
-	$attached_job_types = get_the_job_types( $post_id );
+	$attached_job_types = wpjm_get_the_job_types( $post_id );
 	$job_type_count = count( $attached_job_types );
 	
 	if( $job_type_count > 1 ){
