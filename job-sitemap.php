@@ -22,10 +22,10 @@ $all_jobs = new WP_Query( array( 'post_type' => 'job_listing', 'post_status' => 
 // Add the URL and last modified time (in GMT) to the sitemap
 foreach( $all_jobs->posts as $post ){
 
-    $sitemap .= '<url>';
-    $sitemap .= '<loc>' . get_the_permalink( $post->ID ) . '</loc>';
-    $sitemap .= '<lastmod>' . date( 'c', strtotime( $post->post_modified_gmt ) ) . '</lastmod>';
-    $sitemap .= '</url>';
+  $sitemap .= '<url>';
+  $sitemap .= '<loc>' . get_the_permalink( $post->ID ) . '</loc>';
+  $sitemap .= '<lastmod>' . date( 'c', strtotime( $post->post_modified_gmt ) ) . '</lastmod>';
+  $sitemap .= '</url>';
   
 }
 

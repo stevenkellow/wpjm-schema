@@ -3,7 +3,7 @@
 Plugin Name: WPJM Schema
 Plugin URI: https://wordpress.org/plugins/wpjm-schema/
 Description: Adds Schema.org markup to your WP Job Manager pages
-Version: 0.2-master
+Version: 0.3
 Author: Steven Kellow
 Author URI: https://www.stevenkellow.com
 Text Domain: wpjm-schema
@@ -20,15 +20,15 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
 	
 	// Call in custom functions for output
-	include_once( plugin_dir_path( __FILE__ ) . 'inc/patch-functions.php' );
+	include_once( plugin_dir_path( __FILE__ ) . 'patch-functions.php' );
     
     // Add custom schema info to the WordPress header
     add_action('wp_head', 'wpjm_schema_print');
     function wpjm_schema_print(){
 
-        // Check if the current page is a jobs overview page - deprecated because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
+        /* Check if the current page is a jobs overview page - deprecated because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
         
-        /* Get the current post
+        //Get the current post
         global $post;
         
         if( is_singular( $post ) && has_shortcode( $post->post_content, 'jobs') ) {
@@ -42,7 +42,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
         if( 'job_listing' == get_post_type() ){
 
             // Include the single job page schema
-            include_once( plugin_dir_path( __FILE__ ) . 'inc/schemas-job.php' );
+            include_once( plugin_dir_path( __FILE__ ) . 'inc/schemas-job-listing.php' );
 
         }
 

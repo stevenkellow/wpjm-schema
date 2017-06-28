@@ -42,6 +42,8 @@ function wpjm_get_the_job_types( $post = null ) {
 	return apply_filters( 'wpjm_the_job_types', $types, $post );
 }
 
+}
+
 /**
  * wpjm_schema_output_friendly_job_type
  *
