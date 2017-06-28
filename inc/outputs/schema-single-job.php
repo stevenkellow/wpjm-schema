@@ -5,6 +5,9 @@
 *	The template for showing an individual job listing's schema
 */
 
+// Exit if accessed directly
+if( ! defined( 'ABSPATH') ){ exit; }
+
 // Start the output buffer
 ob_start();
 ?>

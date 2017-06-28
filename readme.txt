@@ -3,7 +3,7 @@ Contributors: stevenkellow
 Tags: jobs, wp job manager, wpjm, schema
 Requires at least: 4.4
 Tested up to: 4.8
-Stable tag: 0.2
+Stable tag: 0.3
 License: GPL
 
 Add Schema.org markup to your WP Job Manger pages and job listings.

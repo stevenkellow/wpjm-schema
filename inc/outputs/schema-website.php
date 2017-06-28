@@ -4,6 +4,10 @@
 *
 *	The template for showing an the website's schema info
 */
+
+// Exit if accessed directly
+if( ! defined( 'ABSPATH') ){ exit; }
+
 // Start the output buffer
 ob_start();
 ?>

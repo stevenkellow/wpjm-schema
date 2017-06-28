@@ -4,6 +4,9 @@
 *
 */
 
+// Exit if accessed directly
+if( ! defined( 'ABSPATH') ){ exit; }
+
 // Get general job information
 $title = $post->post_title; // Job title
 $permalink = get_the_permalink(); // Job permalink
