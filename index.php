@@ -43,6 +43,9 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
 
         // Check if the page is a job listing
         if( 'job_listing' == get_post_type() ){
+            
+            // Set a variable to say we're on a single job listing page
+            $multi_page = false;
 
             // Include the single job page schema
             include_once( plugin_dir_path( __FILE__ ) . 'inc/schemas-job-listing.php' );
