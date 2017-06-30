@@ -8,15 +8,13 @@
 // Exit if accessed directly
 if( ! defined( 'ABSPATH') ){ exit; }
 
-// Start the output buffer
-ob_start();
-?>
-	{
-	  "@context": "http://schema.org",
-	  "@type": "WebSite",
-	  "name": "<?php echo get_bloginfo('name'); ?>",
-	  "url": "<?php echo get_site_url(); ?>"
-	}
-<?php
+// Create the schema
+$website_array = array(
+		'@context' => 'http://schema.org',
+		'@type' => 'WebSite',
+		'name' => get_bloginfo('name'),
+		'url' => get_site_url()
+);
 
-$website_schema = ob_get_clean();
+// Set the schema for output
+$website_schema = json_encode( $website_array );
