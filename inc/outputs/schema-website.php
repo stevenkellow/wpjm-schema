@@ -15,3 +15,10 @@ $website_schema_array = array(
 		'name' => get_bloginfo('name'),
 		'url' => get_site_url()
 );
+
+/*----- DO A FILTER ----- */
+
+// Add filter so that users can customize the fields if they want
+if(has_filter('wpjm_schema_custom_website_fields')) {
+	$website_schema_array = apply_filters('wpjm_schema_custom_website_fields', $website_schema_array);
+}

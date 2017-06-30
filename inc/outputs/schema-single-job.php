@@ -107,55 +107,59 @@ if( ! empty( $job_category ) ){
 
 /* ------ ADD THE COMPANY INFORMATION ------ */
 
-// Set up the array
-$job_company_array = array( '@type' => 'Organization' );
+    // Set up the array
+    $job_company_array = array( '@type' => 'Organization' );
 
-// Add the company name
-$job_company_array['name'] = $company_name;
+    // Add the company name
+    $job_company_array['name'] = $company_name;
 
-// Add the URL if we have it
-if( ! empty( $company_url ) ){
-	$job_company_array['url'] = $company_url;
-}
+    // Add the URL if we have it
+    if( ! empty( $company_url ) ){
+        $job_company_array['url'] = $company_url;
+    }
 
-// Add the company logo if we have it
-if( ! empty( $image ) ){
-	$job_company_array['logo'] = $image;
-}
+    // Add the company logo if we have it
+    if( ! empty( $image ) ){
+        $job_company_array['logo'] = $image;
+    }
 
-// Add the company tagline if we have it
-if( ! empty( $company_desc ) ){
-	$job_company_array['description'] = $company_desc;
-}
+    // Add the company tagline if we have it
+    if( ! empty( $company_desc ) ){
+        $job_company_array['description'] = $company_desc;
+    }
 
-// Add the company Twitter if we have it
-if( ! empty( $company_twitter ) ){
-	
-	// Set it up as a same as array
-	$company_twitter_array = array( $company_twitter ); // Potentially add other social media links here
-	
-	// Add it to company info
-	$job_company_array['sameAs'] = $company_twitter_array;
-	
-	
-}
+    // Add the company Twitter if we have it
+    if( ! empty( $company_twitter ) ){
 
-// Add the company infromation to the final schema
-$job_schema_array['hiringOrganization'] = $job_company_array;
+        // Set it up as a same as array
+        $company_twitter_array = array( $company_twitter ); // Potentially add other social media links here
+
+        // Add it to company info
+        $job_company_array['sameAs'] = $company_twitter_array;
+
+
+    }
+
+    // Add the company infromation to the final schema
+    $job_schema_array['hiringOrganization'] = $job_company_array;
 
 
 /*----- ADD THE REQUIRED IDENTIFIER SECTION ----- */
 
-$job_identifier_array = array( '@type' => 'PropertyValue' );
+    $job_identifier_array = array( '@type' => 'PropertyValue' );
 
-// Add the company name as the identifier
-$job_identifier_array['name'] = $company_name;
+    // Add the company name as the identifier
+    $job_identifier_array['name'] = $company_name;
 
-// Add post ID as the unique value
-$job_identifier_array['value'] = $post->ID;
+    // Add post ID as the unique value
+    $job_identifier_array['value'] = $post->ID;
 
-// Add the identifier to the final array
-$job_schema_array['identifier'] = $job_identifier_array;
+    // Add the identifier to the final array
+    $job_schema_array['identifier'] = $job_identifier_array;
 
+/*----- DO A FILTER ----- */
 
-/*----- DO THE FINAL OUTPUTTING ELSEWHERE ---- */
+// Do a filter to check if the user wants to change any values
+if(has_filter('wpjm_schema_custom_job_fields')) {
+	$job_schema_array = apply_filters('wpjm_schema_custom_job_fields', $job_schema_array);
+}
