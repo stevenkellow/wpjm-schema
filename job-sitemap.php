@@ -7,10 +7,13 @@
 // Exit if accessed directly
 if( ! defined( 'ABSPATH') ){ exit; }
 
-/*
-*	Function to create a sitemap
-*
-*/
+/**
+ *  wpjm_schema_generate_sitemap
+ *
+ *  Function to create the sitemap
+ *
+ *  @since 0.2
+ */
 function wpjm_schema_generate_sitemap() {
   
 $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -41,10 +44,13 @@ wpjm_schema_google_ping();
 
 }
 
-/*
-*	Function to let Google know that the sitemap has been updated
-*
-*/
+/**
+ *  wpjm_schema_generate_sitemap
+ *
+ *  Function to let Google know that the sitemap has been updated
+ *
+ *  @since 0.3
+ */
 function wpjm_schema_google_ping(){
 	
 	// Set up the sitemap ping URL

@@ -45,12 +45,14 @@ function wpjm_get_the_job_types( $post = null ) {
 }
 
 /**
- * wpjm_schema_output_friendly_job_type
+ *  wpjm_schema_output_friendly_job_type
  *
- * Converts the default job types to Google specified definitions - https://developers.google.com/search/docs/data-types/job-postings#definitions
+ *  Converts the default job types to Google specified definitions - https://developers.google.com/search/docs/data-types/job-postings#definitions
  *
- * @param string $specified_job_type - the name of the job type entered.
- * @return string $job_type - Converted job type
+ *  @since 0.2
+ *
+ *  @param string $specified_job_type - the name of the job type entered.
+ *  @return string $job_type - Converted job type
  */
 function wpjm_schema_output_friendly_job_type( $specified_job_type ){
 
@@ -80,12 +82,14 @@ function wpjm_schema_output_friendly_job_type( $specified_job_type ){
 }
 
 /**
- * wpjm_schema_get_the_job_types
+ *  wpjm_schema_get_the_job_types
  *
- * Runs the logic to decide whether to output job types as an array or string
+ *  Runs the logic to decide whether to output job types as an array or string
  *
- * @param int $post_id - the current post in the loop
- * @return string $job_type - Converted job type as array or string
+ *  @since 0.2
+ *
+ *  @param int $post_id - the current post in the loop
+ *  @return string $job_type - Converted job type as array or string
  */
 function wpjm_schema_get_the_job_types( $post_id ){
 	// Check how many job types there are
@@ -137,12 +141,14 @@ function wpjm_schema_get_the_job_types( $post_id ){
 }
 
 /**
- * wpjm_schema_get_the_job_categories
+ *  wpjm_schema_get_the_job_categories
  *
- * Runs the logic to decide whether to output job categories as an array or string
+ *  Runs the logic to decide whether to output job categories as an array or string
  *
- * @param int $post_id - the current post in the loop
- * @return string $job_category - Converted job category as array or string
+ *  @since 0.3
+ *
+ *  @param int $post_id - the current post in the loop
+ *  @return string $job_category - Converted job category as array or string
  */
 function wpjm_schema_get_the_job_categories( $post_id ){
 	// Check how many job categories there are

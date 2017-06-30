@@ -40,6 +40,7 @@ The plugin works straight out of the box, so there's no other options to configu
 
 ### Changelog 
 #### v 0.3
+- Use PHP data structure to output minified schema
 - Re-organise plugin to have clearer structure and less repetition
 - Ping Google when sitemap updated
 - Support multiple job categories (used as Industry)
