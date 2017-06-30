@@ -67,9 +67,22 @@ if( $total_post_count > 0 ){
     // Output the list schema
     echo '<script type="application/ld+json">' . json_encode( $job_multi_list_schema_array ) . '</script>';
     
-    // Include the website schema
-	require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
-	// Output the schema
-	echo '<script type="application/ld+json">' . json_encode( $website_schema_array ) . '</script>';
+    // Show web schema by default
+	$show_web_schema = true;
+	
+	// Add filter so that users can customize the fields if they want
+	if( has_filter('wpjm_schema_show_website_schema') ) {
+		$show_web_schema = apply_filters('wpjm_schema_show_website_schema', $show_web_schema);
+	}
+	
+	// If we want to show the web schema
+	if( $show_web_schema == true ){
+	
+		// Include the website schema
+		require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
+		// Output the schema
+		echo '<script type="application/ld+json">' . json_encode( $website_schema_array ) . '</script>';
+	
+	}
     
 }
