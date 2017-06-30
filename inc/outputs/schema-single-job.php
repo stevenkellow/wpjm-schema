@@ -158,6 +158,4 @@ $job_identifier_array['value'] = $post->ID;
 $job_schema_array['identifier'] = $job_identifier_array;
 
 
-/*----- DO THE FINAL OUTPUTTING ---- */
-
-$job_schema = json_encode($job_schema_array);
+/*----- DO THE FINAL OUTPUTTING ELSEWHERE ---- */

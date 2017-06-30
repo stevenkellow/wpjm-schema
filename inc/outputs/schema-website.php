@@ -9,12 +9,9 @@
 if( ! defined( 'ABSPATH') ){ exit; }
 
 // Create the schema
-$website_array = array(
+$website_schema_array = array(
 		'@context' => 'http://schema.org',
 		'@type' => 'WebSite',
 		'name' => get_bloginfo('name'),
 		'url' => get_site_url()
 );
-
-// Set the schema for output
-$website_schema = json_encode( $website_array );

@@ -20,11 +20,11 @@ if( $post->post_status == 'publish' ){
 	// Include the schema for the job
 	require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-single-job.php' );
 	// Output the schema
-	echo '<script type="application/ld+json">' . $job_schema . '</script>';
+	echo '<script type="application/ld+json">' . json_encode( $job_schema_array ) . '</script>';
     
 	// Include the website schema
 	require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
 	// Output the schema
-	echo '<script type="application/ld+json">' . $website_schema . '</script>';
+	echo '<script type="application/ld+json">' . json_encode( $website_schema_array ) . '</script>';
 
 }
