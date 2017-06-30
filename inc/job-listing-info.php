@@ -11,8 +11,8 @@ if( ! defined( 'ABSPATH') ){ exit; }
 $title = $post->post_title; // Job title
 
 // Check what permalink to show
-if( isset( $multi_page ) || $multi_page == true ){
-    $permalink = get_site_url() . '/job?name=' . $post->post_name; // Create a dynamic url to the main jobs page that will redirect to the job listing page
+if( isset( $multi_page ) && $multi_page == true ){
+    $permalink = get_site_url() . '/jobs/?name=' . $post->post_name; // Create a dynamic url to the main jobs page that will redirect to the job listing page
 } else {
     $permalink = get_the_permalink(); // Get absolute permalink
 }
