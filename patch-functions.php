@@ -12,7 +12,7 @@ if( ! function_exists( 'wpjm_get_the_job_types' ) ){
 /**
  * Gets the job type for the listing. - as defined here https://github.com/Automattic/WP-Job-Manager/blob/d9d1d79bf9b1ebf3ab43c06bc8c3e7aa9644519e/wp-job-manager-template.php
  *
- * @since 1.26.3
+ * @since WPJM 1.26.3
  *
  * @param int|WP_Post $post (default: null).
  * @return false|array
@@ -50,6 +50,7 @@ function wpjm_get_the_job_types( $post = null ) {
  *  Converts the default job types to Google specified definitions - https://developers.google.com/search/docs/data-types/job-postings#definitions
  *
  *  @since 0.2
+ *  @last_modified 0.4
  *
  *  @param string $specified_job_type - the name of the job type entered.
  *  @return string $job_type - Converted job type
@@ -87,6 +88,7 @@ function wpjm_schema_output_friendly_job_type( $specified_job_type ){
  *  Runs the logic to decide whether to output job types as an array or string
  *
  *  @since 0.2
+ *  @last_modified 0.4
  *
  *  @param int $post_id - the current post in the loop
  *  @return string $job_type - Converted job type as array or string

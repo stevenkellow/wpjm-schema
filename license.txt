@@ -1,4 +1,4 @@
-WPJM Schema - Adding Schema.org markup to your WP Job Manager install.
+WPJM Schema - Add Schema.org markup to your WP Job Manager install.
 Copyright (C) 2017 Steven Kellow
 
 This program is free software: you can redistribute it and/or modify

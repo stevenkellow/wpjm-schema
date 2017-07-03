@@ -13,6 +13,7 @@ if( ! defined( 'ABSPATH') ){ exit; }
  *  Function to create the sitemap
  *
  *  @since 0.2
+ *  @last_modified 0.4
  */
 function wpjm_schema_generate_sitemap() {
     

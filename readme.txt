@@ -1,12 +1,12 @@
 === WPJM Schema ===
 Contributors: stevenkellow
-Tags: jobs, wp job manager, wpjm, schema
+Tags: jobs, wpjobmanager, wpjm, schema
 Requires at least: 4.4
 Tested up to: 4.8
 Stable tag: 0.4
 License: GPL
 
-Add Schema.org markup to your WP Job Manger pages and job listings.
+Add Schema.org markup to your WP Job Manager pages and job listings.
 
 == Description ==
 Schema.org markup is a way of giving search engines more information about your website so that they can automatically process your pages and display that to users.
