@@ -26,20 +26,30 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     add_action('wp_head', 'wpjm_schema_print');
     function wpjm_schema_print(){
 
-        /* Check if the current page is a jobs overview page - deprecated because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
-        
-        //Get the current post
-        global $post;
-        
-        if( is_singular( $post ) && has_shortcode( $post->post_content, 'jobs') ) {
-        
-            // Set a variable to say we're on a multi page
-            $multi_page = true;
+        // Check if the current page is a jobs overview page - deprecated because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
+        $show_multi_job_schema = false;
 
-            // Include the all jobs schema
-            include_once( plugin_dir_path( __FILE__ ) . 'inc/schemas-all-jobs.php' );
+        // Add filter so that users turn off the sitemap generation if they want
+        if( has_filter('wpjm_schema_show_multi_job_schema') ) {
+            $show_multi_job_schema = apply_filters('wpjm_schema_show_multi_job_schema', $show_multi_job_schema);
+        }
 
-        } */
+        // If we want to create the sitemap
+        if( $show_multi_job_schema === true ){
+        
+            //Get the current post
+            global $post;
+
+            if( is_singular( $post ) && has_shortcode( $post->post_content, 'jobs') ) {
+
+                // Set a variable to say we're on a multi page
+                $multi_page = true;
+
+                // Include the all jobs schema
+                include_once( plugin_dir_path( __FILE__ ) . 'inc/schemas-all-jobs.php' );
+
+            }
+        }
 
         // Check if the page is a job listing
         if( 'job_listing' == get_post_type() ){
