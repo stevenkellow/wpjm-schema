@@ -26,7 +26,7 @@ if( isset( $multi_page ) && $multi_page == true ){
 }
 
 // Add the date opened
-$job_schema_array['datePosted'] = date( 'Y-m-d', strtotime( $post->post_date ) );;
+$job_schema_array['datePosted'] = date( 'Y-m-d', strtotime( $post->post_date ) );
 
 // Add the closing/expiry date
 $app_deadline = get_post_meta($post->ID, '_application_deadline', true); // If the application deadline plugin exists, use set deadline
