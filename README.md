@@ -86,11 +86,11 @@ function hide_web_schema_function( $show_schema ){
 ```
 
 ##### Filter sitemap creation
-Finally, there are two filters that apply to the sitemap generation.  One filter `wpjm_schema_generate_job_sitemap` will turn on/off the sitemap generator and `wpjm_schema_ping_google_sitemap` will turn on/off the ability to ping Google with the changes made to the sitemap.
+Finally, there are two filters that apply to the sitemap generation.  One filter `wpjm_schema_generate_job_sitemap` will turn on/off the sitemap generator and `wpjm_schema_ping_search_engines` will turn on/off the ability to ping Google with the changes made to the sitemap.
 
 ```
 // Example to hide website schema
-add_filter( 'wpjm_schema_ping_google_sitemap', 'turn_google_ping_off');
+add_filter( 'wpjm_schema_ping_search_engines', 'turn_google_ping_off');
 function turn_google_ping_off( $ping_google ){
 	return false;
 }

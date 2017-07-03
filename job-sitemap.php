@@ -54,8 +54,8 @@ function wpjm_schema_generate_sitemap() {
         $ping_google = true;
 
         // Add filter so that users turn off the Google ping if they want
-        if( has_filter('wpjm_schema_ping_google_sitemap') ) {
-            $ping_google = apply_filters('wpjm_schema_ping_google_sitemap', $ping_google);
+        if( has_filter('wpjm_schema_ping_search_engines') ) {
+            $ping_google = apply_filters('wpjm_schema_ping_search_engines', $ping_google);
         }
 
         // If we want to ping Google
