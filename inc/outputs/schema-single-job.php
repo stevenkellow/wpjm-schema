@@ -133,8 +133,6 @@ if( ! empty( $job_category ) ){
 		
 	}
 	
-	
-	
 	// Add the job location to the final schema
 	$job_schema_array['jobLocation'] = $job_location_array;
 	
@@ -197,6 +195,6 @@ if( ! empty( $job_category ) ){
 /*----- DO A FILTER ----- */
 
 // Do a filter to check if the user wants to change any values
-if(has_filter('wpjm_schema_custom_job_fields')) {
-	$job_schema_array = apply_filters('wpjm_schema_custom_job_fields', $job_schema_array);
+if( has_filter( 'wpjm_schema_custom_job_fields' )) {
+	$job_schema_array = apply_filters( 'wpjm_schema_custom_job_fields', $job_schema_array );
 }

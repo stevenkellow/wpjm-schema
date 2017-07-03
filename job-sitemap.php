@@ -37,8 +37,8 @@ function wpjm_schema_generate_sitemap() {
         foreach( $all_jobs->posts as $post ){
 
           $sitemap .= '<url>';
-          $sitemap .= '<loc>' . get_the_permalink( $post->ID ) . '</loc>';
-          $sitemap .= '<lastmod>' . date( 'c', strtotime( $post->post_modified_gmt ) ) . '</lastmod>';
+          $sitemap .= '<loc>' . get_the_permalink( $post->ID ) . '</loc>'; // Add the URL
+          $sitemap .= '<lastmod>' . date( 'c', strtotime( $post->post_modified_gmt ) ) . '</lastmod>'; // Add the last modified time in GMT
           $sitemap .= '</url>';
 
         }

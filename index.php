@@ -26,12 +26,12 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     add_action('wp_head', 'wpjm_schema_print');
     function wpjm_schema_print(){
 
-        // Check if the current page is a jobs overview page - deprecated because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
+        // Check if the current page is a jobs overview page - deprecated (false by default) because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
         $show_multi_job_schema = false;
 
         // Add filter so that users turn off the sitemap generation if they want
-        if( has_filter('wpjm_schema_show_multi_job_schema') ) {
-            $show_multi_job_schema = apply_filters('wpjm_schema_show_multi_job_schema', $show_multi_job_schema);
+        if( has_filter('wpjm_schema_show_multi_job_schema' ) ) {
+            $show_multi_job_schema = apply_filters( 'wpjm_schema_show_multi_job_schema', $show_multi_job_schema );
         }
 
         // If we want to create the sitemap
@@ -40,6 +40,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
             //Get the current post
             global $post;
 
+            // If this page has the jobs shortcode on it
             if( is_singular( $post ) && has_shortcode( $post->post_content, 'jobs') ) {
 
                 // Set a variable to say we're on a multi page
@@ -69,7 +70,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     include_once( plugin_dir_path( __FILE__ ) . 'job-sitemap.php' );
 
     // Run the sitemap generator when a new job is published, updated or the plugin is installed
-    add_action('publish_job_listing', 'wpjm_schema_generate_sitemap');
+    add_action( 'publish_job_listing', 'wpjm_schema_generate_sitemap' );
     add_action( 'save_post_job_listing', 'wpjm_schema_generate_sitemap' );
     register_activation_hook(  __FILE__, 'wpjm_schema_generate_sitemap' );
 

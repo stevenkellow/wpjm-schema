@@ -19,6 +19,6 @@ $website_schema_array = array(
 /*----- DO A FILTER ----- */
 
 // Add filter so that users can customize the fields if they want
-if(has_filter('wpjm_schema_custom_website_fields')) {
-	$website_schema_array = apply_filters('wpjm_schema_custom_website_fields', $website_schema_array);
+if( has_filter('wpjm_schema_custom_website_fields' )) {
+	$website_schema_array = apply_filters( 'wpjm_schema_custom_website_fields', $website_schema_array );
 }

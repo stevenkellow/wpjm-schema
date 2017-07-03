@@ -53,7 +53,7 @@ For example: to change "name" on the first level of the schema you can just filt
 add_filter( 'wpjm_schema_custom_job_fields', 'my_custom_schema_filter' );
 function my_custom_schema_filter( $job_schema ){
 
-	$global $post;
+	global $post;
 
 	$job_schema['identifier']['value'] = get_post_meta( $post->ID, 'custom_job_reference', true );
 	
@@ -67,7 +67,7 @@ add_filter( 'wpjm_schema_custom_website_fields', 'my_custom_web_schema_filter' )
 function my_custom_web_schema_filter( $website_schema ){
 
 	// Add a social link to the sameAs array
-	$website_schema['sameas'][] = 'https://twitter.com/mysitetwitteracount';
+	$website_schema['sameAs'][] = 'https://twitter.com/mysitetwitteracount';
 	
 	return $website_schema;
 	
