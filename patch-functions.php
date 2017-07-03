@@ -59,22 +59,22 @@ function wpjm_schema_output_friendly_job_type( $specified_job_type ){
 	// Convert default job types to Google recommended values
 	switch( $specified_job_type ){
 		case 'Freelance':
-			$job_type = '"CONTRACTOR"';
+			$job_type = 'CONTRACTOR';
 			break;
 		case 'Full Time':
-			$job_type = '"FULL_TIME"';
+			$job_type = 'FULL_TIME';
 			break;
 		case 'Internship':
-			$job_type = '"INTERN"';
+			$job_type = 'INTERN';
 			break;
 		case 'Part Time':
-			$job_type = '"PART_TIME"';
+			$job_type = 'PART_TIME';
 			break;
 		case 'Temporary':
-			$job_type = '"TEMPORARY"';
+			$job_type = 'TEMPORARY';
 			break;
 		default:
-			$job_type = '"OTHER"';
+			$job_type = 'OTHER';
 	}
 	
     // Return the formatted job type
@@ -97,37 +97,17 @@ function wpjm_schema_get_the_job_types( $post_id ){
 	$job_type_count = count( $attached_job_types );
 	
 	if( $job_type_count > 1 ){
-        
-        // Set a counter for our upcoming loop
-        $job_type_counter = 0;
 		
 		// Open the job types array
-		$job_type = '[';
+		$job_type = array();
 		
 		// Add each individual job type to an array
 		foreach( $attached_job_types as $individual_job_type ){
-			
-			// Get the formatted job type
-			$new_job_type = wpjm_schema_output_friendly_job_type( $individual_job_type->name );
             
             // Add formatted job type to our array string			
-			$job_type .= $new_job_type;
-			
-			// Increment the counter
-			$job_type_counter++;
-		
-			// If there's more job types to add put in a comma
-			if( $job_type_counter !== $job_type_count ){
-				
-				$job_type .= ',';
-				
-			}
+			$job_type[] = wpjm_schema_output_friendly_job_type( $individual_job_type->name );
 			
 		}
-		
-		// Close the job type array
-		$job_type .= ']';
-		
 		
 	} else {
 		
@@ -155,39 +135,24 @@ function wpjm_schema_get_the_job_categories( $post_id ){
 	$attached_job_categories = wp_get_post_terms($post_id, 'job_listing_category', array('fields' => 'names'));
 	$job_category_count = count( $attached_job_categories );
 	
-	$job_category_counter = 0;
-	
 	if( $job_category_count > 1 ){
 		
 		// Open the job categories array
-		$job_category = '[';
+		$job_category = array();
 		
 		// Add each individual job category to an array
 		foreach( $attached_job_categories as $individual_job_category ){
             
             // Add formatted job category to our array string			
-			$job_category .= '"' . $individual_job_category . '"';
-			
-			// Increment the counter
-			$job_category_counter++;
-		
-			// If there's more job categories to add put in a comma
-			if( $job_category_counter !== $job_category_count ){
-				
-				$job_category .= ',';
-				
-			}
+			$job_category[] = $individual_job_category;
 			
 		}
-		
-		// Close the job category array
-		$job_category .= ']';
 		
 		
 	} else {
 		
 		// For the one job category, output it
-		$job_category = '"' . $attached_job_categories[0] . '"';
+		$job_category = $attached_job_categories[0];
 		
 	}
 	
