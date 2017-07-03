@@ -80,11 +80,14 @@ function wpjm_schema_generate_sitemap() {
  *  @last_modified 0.4
  */
 function wpjm_schema_search_engine_ping(){
+    
+    // Get the sitemap URL
+    $sitemap_url = trailingslashit( get_site_url() ) . 'job-sitemap.xml';
 	
 	// Set up the sitemap ping URLs
     $ping_urls = array( 
-        'google' => 'http://www.google.com/ping?sitemap=' . $test . 'job-sitemap.xml',
-        'bing' => 'http://www.bing.com/ping?sitemap=' . $test . 'job-sitemap.xml' );
+        'google' => 'http://www.google.com/ping?sitemap=' . $sitemap_url,
+        'bing' => 'http://www.bing.com/ping?sitemap=' . $sitemap_url );
 
     // Set up the arguments - we don't want SSLverify incase the site doesn't support it
     $args = array( 'sslverify' => false );
