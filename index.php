@@ -53,17 +53,30 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
         }
 
     }
-	
-	// Call in the sitemap generator
-	include_once( plugin_dir_path( __FILE__ ) . 'job-sitemap.php' );
-	
-	// Run the sitemap generator when a new job is published, updated or the plugin is installed
-	add_action('publish_job_listing', 'wpjm_schema_generate_sitemap');
-	add_action( 'save_post_job_listing', 'wpjm_schema_generate_sitemap' );
-	register_activation_hook(  __FILE__, 'wpjm_schema_generate_sitemap' );
     
-    // Add a CRON job to run with the expired jobs hook to make sure sitemap is updated if jobs expire
-	add_action( 'job_manager_check_for_expired_jobs', 'wpjm_schema_generate_sitemap' );
+    // Generate sitemap by default
+    $create_sitemap = true;
+
+    // Add filter so that users turn off the sitemap generation if they want
+    if( has_filter('wpjm_schema_generate_job_sitemap') ) {
+        $show_web_schema = apply_filters('wpjm_schema_generate_job_sitemap', $create_sitemap);
+    }
+
+    // If we want to ping Google
+    if( $create_sitemap == true ){
+
+        // Call in the sitemap generator
+        include_once( plugin_dir_path( __FILE__ ) . 'job-sitemap.php' );
+
+        // Run the sitemap generator when a new job is published, updated or the plugin is installed
+        add_action('publish_job_listing', 'wpjm_schema_generate_sitemap');
+        add_action( 'save_post_job_listing', 'wpjm_schema_generate_sitemap' );
+        register_activation_hook(  __FILE__, 'wpjm_schema_generate_sitemap' );
+
+        // Add a CRON job to run with the expired jobs hook to make sure sitemap is updated if jobs expire
+        add_action( 'job_manager_check_for_expired_jobs', 'wpjm_schema_generate_sitemap' );
+
+    }
     
     
 } else {

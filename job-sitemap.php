@@ -38,9 +38,22 @@ $sitemap .= '</urlset>';
 $fp = fopen(ABSPATH . 'job-sitemap.xml', 'w');
 fwrite($fp, $sitemap);
 fclose($fp);
+    
+// Ping Google by default
+$ping_google = true;
+    
+// Add filter so that users turn off the Google ping if they want
+if( has_filter('wpjm_schema_ping_google_sitemap') ) {
+    $show_web_schema = apply_filters('wpjm_schema_ping_google_sitemap', $ping_google);
+}
 
-// Let Google know the sitemap has been updated
-wpjm_schema_google_ping();
+// If we want to ping Google
+if( $ping_google == true ){
+
+    // Let Google know the sitemap has been updated
+    wpjm_schema_google_ping();
+    
+}
 
 }
 
