@@ -39,12 +39,9 @@ if( $total_post_count > 0 ){
     $job_listing_items = array();
 
     foreach( $all_jobs->posts as $post ){
-
-        // Get all the relevant info about the job listings
-        require_once( plugin_dir_path( __FILE__ ) . 'job-listing-info.php' );
         
         // Get the schema loaded in_admin_footer
-        require_once( plugin_dir_path( __FILE__ ) . '/outputs/schema-single-job.php' );
+        include( plugin_dir_path( __FILE__ ) . '/outputs/schema-single-job.php' );
 
         // Create the schema array
         $job_multi_list_array = array( '@type' => 'ListItem', 'position' => $counter, 'item' => $job_schema_array );
@@ -53,12 +50,12 @@ if( $total_post_count > 0 ){
         $job_listing_items[] = $job_multi_list_array;
 
         // Increment list counter
-        $counter++;
-
-        /* Restore original Post Data */
-        wp_reset_postdata();
+        $counter++;        
 
     }
+	
+	// Restore original Post Data
+    wp_reset_postdata();
     
     // Add all of the items to the schema
     $job_multi_list_schema_array['itemListElement'] = $job_listing_items;
@@ -67,22 +64,9 @@ if( $total_post_count > 0 ){
     // Output the list schema
     echo '<script type="application/ld+json">' . json_encode( $job_multi_list_schema_array ) . '</script>';
     
-    // Show web schema by default
-	$show_web_schema = true;
-	
-	// Add filter so that users can customize the fields if they want
-	if( has_filter('wpjm_schema_show_website_schema') ) {
-		$show_web_schema = apply_filters('wpjm_schema_show_website_schema', $show_web_schema);
-	}
-	
-	// If we want to show the web schema
-	if( $show_web_schema == true ){
-	
-		// Include the website schema
-		require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
-		// Output the schema
-		echo '<script type="application/ld+json">' . json_encode( $website_schema_array ) . '</script>';
-	
-	}
+    // Include the website schema
+	require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
+	// Output the schema
+	echo '<script type="application/ld+json">' . json_encode( $website_schema_array ) . '</script>';
     
 }

@@ -14,11 +14,9 @@ global $post;
 
 if( $post->post_status == 'publish' ){
 
-	// Get all the relevant info about the job listings
-	require_once( plugin_dir_path( __FILE__ ) . 'job-listing-info.php' );
-
-	// Include the schema for the job
-	require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-single-job.php' );
+	// Get all the relevant info about the job listings and get the schema
+	include_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-single-job.php' );
+	
 	// Output the schema
 	echo '<script type="application/ld+json">' . json_encode( $job_schema_array ) . '</script>';
     

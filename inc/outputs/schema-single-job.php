@@ -15,37 +15,60 @@ $job_schema_array = array( '@context' => 'http://schema.org', '@type' => 'JobPos
 /*----- GET THE GENERAL INFORMATION ---- */
 
 // Add the job title
-$job_schema_array['title'] = $title;
+$job_schema_array['title'] = $post->post_title;
 
 // Add the permalink
-$job_schema_array['url'] = $permalink;
+// Check what permalink to show
+if( isset( $multi_page ) && $multi_page == true ){
+    $job_schema_array['url']= get_site_url() . '/jobs/?name=' . $post->post_name; // Create a dynamic url to the main jobs page that will redirect to the job listing page
+} else {
+    $job_schema_array['url'] = get_the_permalink(); // Get absolute permalink
+}
 
 // Add the date opened
-$job_schema_array['datePosted'] = $date;
+$job_schema_array['datePosted'] = date( 'Y-m-d', strtotime( $post->post_date ) );;
 
 // Add the closing/expiry date
+$app_deadline = get_post_meta($post->ID, '_application_deadline', true); // If the application deadline plugin exists, use set deadline
+if( ! $app_deadline ){
+	$app_deadline = get_post_meta($post->ID, '_job_expires', true); // If no deadline set, just get the job expiry date
+}
 $job_schema_array['validThrough'] = $app_deadline;
 
 // Check for the job title
-if( ! empty( $title ) ){
-	$job_schema_array['title'] = $title;
+if( ! empty( $post->post_title ) ){
+	$job_schema_array['title'] = $post->post_title;
 }
 
 // Check for the company logo
-if( ! empty( $image ) ){
-	$job_schema_array['image'] = $image;
+$logo = get_the_post_thumbnail_url( $post->ID, 'full' );
+if( ! empty( $logo ) ){
+	$job_schema_array['image'] = $logo;
 }
 
 // Check for the job description
-if( ! empty( $description ) ){
-	$job_schema_array['description'] = $description;
+if( ! empty( $post->post_content ) ){
+	$job_schema_array['description'] = $post->post_content;
 }
 
+
+// Check if job types are enabled for job listings
+if( get_option( 'job_manager_enable_types') ){
+
+	// Get the job types JSON formatted
+	$job_type = wpjm_schema_get_the_job_types( $post->ID ); // Job type formatted as 'employmentType'
+
+}
 // Check for the job type (employmentType, e.g.: FULL_TIME, PART_TIME )
 if( ! empty( $job_type ) ){
 	$job_schema_array['employmentType'] = $job_type;
 }
 
+
+// Check if categories are enabled for job listings
+if ( get_option( 'job_manager_enable_categories' ) ) {
+	$job_category = wpjm_schema_get_the_job_categories( $post->ID ); // Job category formatted as 'industry'
+}
 // Check for the job category (which we've mapped to industry)
 if( ! empty( $job_category ) ){
 	$job_schema_array['industry'] = $job_category;
@@ -60,18 +83,29 @@ if( ! empty( $job_category ) ){
 	$job_address_array = array( '@type' => 'PostalAddress' );
 	
 	// Add the location "locality" - use the city if we have it, or the general location otherwise
+	$city = get_post_meta( $post->ID, 'geolocation_city', true);
 	if( ! empty( $city ) ){
+		
 		$job_address_array['addressLocality'] = $city;
-	} elseif( ! empty( $location ) ){
-		$job_address_array['addressLocality'] = $location;
+	
+	} else{
+		
+		// Get the location as a fallback
+		$location = get_post_meta($post->ID, '_job_location', true);
+		
+		if( ! empty( $location ) ){
+			$job_address_array['addressLocality'] = $location;
+		}
 	}
 	
 	// Add region if we have it
+	$region = get_post_meta( $post->ID, 'geolocation_state_long', true );
 	if( ! empty( $region ) ){
 		$job_address_array['addressRegion'] = $region;
 	}
 	
 	// Add country if we have it
+	$country = get_post_meta($post->ID, 'geolocation_country_short', true);
 	if( ! empty( $country ) ){
 		$job_address_array['addressCountry'] = $country;
 	}
@@ -88,10 +122,10 @@ if( ! empty( $job_category ) ){
 		$geo_array = array( '@type' => 'GeoCoordinates' );
 		
 		//Add latitude
-		$geo_array['latitude'] = $latitude;
+		$geo_array['latitude'] = get_post_meta($post->ID, 'geolocation_lat', true);
 		
 		// Add longitude
-		$geo_array['longitude'] = $longitude;
+		$geo_array['longitude'] = get_post_meta($post->ID, 'geolocation_long', true);
 		
 		// Add the geo array to the location array
 		$job_location_array['geo'] = $geo_array;
@@ -111,24 +145,27 @@ if( ! empty( $job_category ) ){
     $job_company_array = array( '@type' => 'Organization' );
 
     // Add the company name
+	$company_name = get_the_company_name();
     $job_company_array['name'] = $company_name;
 
     // Add the URL if we have it
     if( ! empty( $company_url ) ){
-        $job_company_array['url'] = $company_url;
+        $job_company_array['url'] = get_the_company_website();
     }
 
     // Add the company logo if we have it
-    if( ! empty( $image ) ){
-        $job_company_array['logo'] = $image;
+    if( ! empty( $logo ) ){
+        $job_company_array['logo'] = $logo;
     }
 
     // Add the company tagline if we have it
+	$company_desc = get_post_meta($post->ID, '_company_tagline', true);
     if( ! empty( $company_desc ) ){
         $job_company_array['description'] = $company_desc;
     }
 
     // Add the company Twitter if we have it
+	$company_twitter = get_the_company_twitter();
     if( ! empty( $company_twitter ) ){
 
         // Set it up as a same as array
