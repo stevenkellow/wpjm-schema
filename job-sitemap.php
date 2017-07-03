@@ -15,45 +15,58 @@ if( ! defined( 'ABSPATH') ){ exit; }
  *  @since 0.2
  */
 function wpjm_schema_generate_sitemap() {
-  
-$sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
-$sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-  
-// Get a query of all jobs that are available
-$all_jobs = new WP_Query( array( 'post_type' => 'job_listing', 'post_status' => 'publish', 'posts_per_page' => -1 ) );
-
-// Add the URL and last modified time (in GMT) to the sitemap
-foreach( $all_jobs->posts as $post ){
-
-  $sitemap .= '<url>';
-  $sitemap .= '<loc>' . get_the_permalink( $post->ID ) . '</loc>';
-  $sitemap .= '<lastmod>' . date( 'c', strtotime( $post->post_modified_gmt ) ) . '</lastmod>';
-  $sitemap .= '</url>';
-  
-}
-
-$sitemap .= '</urlset>';
-
-// Write the sitemap to yoursite.com/job-sitemap.xml
-$fp = fopen(ABSPATH . 'job-sitemap.xml', 'w');
-fwrite($fp, $sitemap);
-fclose($fp);
     
-// Ping Google by default
-$ping_google = true;
-    
-// Add filter so that users turn off the Google ping if they want
-if( has_filter('wpjm_schema_ping_google_sitemap') ) {
-    $ping_google = apply_filters('wpjm_schema_ping_google_sitemap', $ping_google);
-}
+    // Generate sitemap by default
+    $create_sitemap = true;
 
-// If we want to ping Google
-if( $ping_google == true ){
+    // Add filter so that users turn off the sitemap generation if they want
+    if( has_filter('wpjm_schema_generate_job_sitemap') ) {
+        $create_sitemap = apply_filters('wpjm_schema_generate_job_sitemap', $create_sitemap);
+    }
 
-    // Let Google know the sitemap has been updated
-    wpjm_schema_google_ping();
-    
-}
+    // If we want to create the sitemap
+    if( $create_sitemap === true ){
+  
+        $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
+        $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+        // Get a query of all jobs that are available
+        $all_jobs = new WP_Query( array( 'post_type' => 'job_listing', 'post_status' => 'publish', 'posts_per_page' => -1 ) );
+
+        // Add the URL and last modified time (in GMT) to the sitemap
+        foreach( $all_jobs->posts as $post ){
+
+          $sitemap .= '<url>';
+          $sitemap .= '<loc>' . get_the_permalink( $post->ID ) . '</loc>';
+          $sitemap .= '<lastmod>' . date( 'c', strtotime( $post->post_modified_gmt ) ) . '</lastmod>';
+          $sitemap .= '</url>';
+
+        }
+
+        $sitemap .= '</urlset>';
+
+        // Write the sitemap to yoursite.com/job-sitemap.xml
+        $fp = fopen(ABSPATH . 'job-sitemap.xml', 'w');
+        fwrite($fp, $sitemap);
+        fclose($fp);
+
+        // Ping Google by default
+        $ping_google = true;
+
+        // Add filter so that users turn off the Google ping if they want
+        if( has_filter('wpjm_schema_ping_google_sitemap') ) {
+            $ping_google = apply_filters('wpjm_schema_ping_google_sitemap', $ping_google);
+        }
+
+        // If we want to ping Google
+        if( $ping_google === true ){
+
+            // Let Google know the sitemap has been updated
+            wpjm_schema_google_ping();
+
+        }
+        
+    }
 
 }
 
