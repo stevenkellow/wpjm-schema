@@ -3,7 +3,7 @@ Contributors: stevenkellow
 Tags: jobs, wp job manager, wpjm, schema  
 Requires at least: 4.4  
 Tested up to: 4.8  
-Stable tag: 0.3    
+Stable tag: 0.4    
 License: GPL
 
 Add Schema.org markup to your WP Job Manger pages and job listings.
@@ -102,6 +102,7 @@ function turn_google_ping_off( $ping_google ){
 - Make sure schema is output correctly on multi-job pages
 - Fix permalink for multi-job pages
 - Fix multi job type/category output in JSON
+- Fix multi job loop issues where the same schema was output for multiple jobs
 #### v 0.3
 - Use PHP data structure to output minified schema
 - Re-organise plugin to have clearer structure and less repetition
