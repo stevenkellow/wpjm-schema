@@ -103,6 +103,8 @@ function turn_google_ping_off( $ping_google ){
 - Fix permalink for multi-job pages
 - Fix multi job type/category output in JSON
 - Fix multi job loop issues where the same schema was output for multiple jobs
+- Send ping to Bing when sitemap is updated
+- Use wp_remote_get to avoid an issue where CURL not installed
 #### v 0.3
 - Use PHP data structure to output minified schema
 - Re-organise plugin to have clearer structure and less repetition

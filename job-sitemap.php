@@ -62,7 +62,7 @@ function wpjm_schema_generate_sitemap() {
         if( $ping_google === true ){
 
             // Let Google know the sitemap has been updated
-            wpjm_schema_google_ping();
+            wpjm_schema_search_engine_ping();
 
         }
         
@@ -71,43 +71,44 @@ function wpjm_schema_generate_sitemap() {
 }
 
 /**
- *  wpjm_schema_google_ping
+ *  wpjm_schema_search_engine_ping
  *
- *  Function to let Google know that the sitemap has been updated
+ *  Function to let Google/Bing know that the sitemap has been updated
  *
  *  @since 0.3
+ *  @last_modified 0.4
  */
-function wpjm_schema_google_ping(){
+function wpjm_schema_search_engine_ping(){
 	
-	// Set up the sitemap ping URL
-	$ping_url = 'http://www.google.com/ping?sitemap=' . trailingslashit( get_site_url() ) . 'job-sitemap.xml';
+	// Set up the sitemap ping URLs
+    $ping_urls = array( 
+        'google' => 'http://www.google.com/ping?sitemap=' . $test . 'job-sitemap.xml',
+        'bing' => 'http://www.bing.com/ping?sitemap=' . $test . 'job-sitemap.xml' );
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $ping_url); // The URL we're using to get/send data
+    // Set up the arguments - we don't want SSLverify incase the site doesn't support it
+    $args = array( 'sslverify' => false );
     
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); // Timeout when connecting to the server
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30); // Timeout when retrieving from the server
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // We don't want to force SSL incase a site doesn't use it
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Hide the output from the page
-
-    // Get the response
-    $response = curl_exec($ch);
+    // Set the response success variable
+    $data = true;
     
-    // Check if there's an error
-    $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    // Ping Google & Bing
+    foreach( $ping_urls as $engine => $value ){
+        
+        // Make the ping
+        $response = wp_remote_get( $value, $args );
+    
+        // Check the response HTTP code
+        $httpcode = $response['response']['code'];
 
-    // If there's any curl errors or server-side errors lets show that
-    if (curl_errno($ch) || ( $httpcode < 200 || $httpcode >= 300 )  ) {
-        $data = false;
-		curl_close($ch);
-    } else {
-		// It worked
-        $data = true;
-		
-        curl_close($ch);
+        // If there's any errors lets show that
+        if ( $httpcode < 200 || $httpcode >= 300 ) {
+
+            $data = false;
+
+        }
         
     }
-
+    
     // Send a response back
     return $data;
 
