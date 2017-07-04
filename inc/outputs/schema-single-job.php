@@ -44,6 +44,16 @@ if( ! empty( $post->post_title ) ){
 $logo = get_the_post_thumbnail_url( $post->ID, 'full' );
 if( ! empty( $logo ) ){
 	$job_schema_array['image'] = $logo;
+} else {
+    // Get the site logo as a fallback image
+    $custom_logo_id = get_theme_mod( 'custom_logo' );
+    if( ! empty( $custom_logo_id ) ){
+    
+        $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );  
+        $job_schema_array['image'] = $image[0];
+        
+    }
+    
 }
 
 // Check for the job description

@@ -16,6 +16,11 @@ $website_schema_array = array(
 		'url' => get_site_url()
 );
 
+// Check if the site has an image and add it if so
+$custom_logo_id = get_theme_mod( 'custom_logo' );
+$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+$website_schema_array['image'] = $image[0];
+
 /*----- DO A FILTER ----- */
 
 // Add filter so that users can customize the fields if they want
