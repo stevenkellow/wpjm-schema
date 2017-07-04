@@ -189,7 +189,7 @@ if( ! empty( $job_category ) ){
     $job_schema_array['hiringOrganization'] = $job_company_array;
 
 
-/*----- ADD THE REQUIRED IDENTIFIER SECTION ----- */
+/*----- ADD THE RECOMMENDED IDENTIFIER SECTION ----- */
 
     $job_identifier_array = array( '@type' => 'PropertyValue' );
 

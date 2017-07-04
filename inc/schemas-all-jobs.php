@@ -65,7 +65,7 @@ if( $total_post_count > 0 ){
     echo '<script type="application/ld+json">' . json_encode( $job_multi_list_schema_array ) . '</script>';
     
     // Include the website schema
-	require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
+	include_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
 	// Output the schema
 	echo '<script type="application/ld+json">' . json_encode( $website_schema_array ) . '</script>';
     

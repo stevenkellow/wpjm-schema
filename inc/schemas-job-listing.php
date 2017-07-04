@@ -32,7 +32,7 @@ if( $post->post_status == 'publish' ){
 	if( $show_web_schema == true ){
 	
 		// Include the website schema
-		require_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
+		include_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-website.php' );
 		// Output the schema
 		echo '<script type="application/ld+json">' . json_encode( $website_schema_array ) . '</script>';
 	
