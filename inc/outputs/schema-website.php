@@ -18,8 +18,10 @@ $website_schema_array = array(
 
 // Check if the site has an image and add it if so
 $custom_logo_id = get_theme_mod( 'custom_logo' );
-$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-$website_schema_array['image'] = $image[0];
+if( ! empty( $custom_logo_id ) ){
+    $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+    $website_schema_array['image'] = $image[0];
+}
 
 /*----- DO A FILTER ----- */
 
