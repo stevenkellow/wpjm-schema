@@ -126,7 +126,7 @@ if( ! empty( $job_category ) ){
 	/*------------*/
 	
 	// If we've geolocated the job
-	if( $geolocated == 1 ){
+	if( isset( $geolocated ) && $geolocated == 1 ){
 		
 		// Set up the geolocation array
 		$geo_array = array( '@type' => 'GeoCoordinates' );
