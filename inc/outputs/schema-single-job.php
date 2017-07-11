@@ -126,6 +126,8 @@ if( ! empty( $job_category ) ){
 	/*------------*/
 	
 	// If we've geolocated the job
+	$geolocated = get_post_meta($post->ID, 'geolocated', true);
+	
 	if( isset( $geolocated ) && $geolocated == 1 ){
 		
 		// Set up the geolocation array
