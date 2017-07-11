@@ -3,7 +3,7 @@
 Plugin Name: WPJM Schema
 Plugin URI: https://wordpress.org/plugins/wpjm-schema/
 Description: Adds Schema.org markup to your WP Job Manager pages
-Version: 0.4
+Version: 0.4.2
 Author: Steven Kellow
 Author URI: https://www.stevenkellow.com
 Text Domain: wpjm-schema
@@ -24,6 +24,15 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     
     // Add custom schema info to the WordPress header
     add_action('wp_head', 'wpjm_schema_print');
+	
+	/**
+	 *  wpjm_schema_generate_sitemap
+	 *
+	 *  Function to create the sitemap
+	 *
+	 *  @since 0.2
+	 *  @last_modified 0.4
+	 */
     function wpjm_schema_print(){
 
         // Check if the current page is a jobs overview page - deprecated (false by default) because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
@@ -64,19 +73,14 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
         }
 
     }
-
-
-    // Call in the sitemap generator
-    include_once( plugin_dir_path( __FILE__ ) . 'job-sitemap.php' );
-
-    // Run the sitemap generator when a new job is published, updated or the plugin is installed
-    add_action( 'publish_job_listing', 'wpjm_schema_generate_sitemap' );
-    add_action( 'save_post_job_listing', 'wpjm_schema_generate_sitemap' );
-    register_activation_hook(  __FILE__, 'wpjm_schema_generate_sitemap' );
-
-    // Add a CRON job to run with the expired jobs hook to make sure sitemap is updated if jobs expire
-    add_action( 'job_manager_check_for_expired_jobs', 'wpjm_schema_generate_sitemap' );
-
+	
+	
+	/*
+	*  Call in the sitemap generator
+	*
+	*/
+	include_once( plugin_dir_path( __FILE__ ) . 'job-sitemap.php' );
+	
     
     
 } else {
