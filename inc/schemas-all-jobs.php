@@ -38,6 +38,7 @@ if( $total_post_count > 0 ){
     // Create an array of items
     $job_listing_items = array();
 
+	// Create a list item for each job
     foreach( $all_jobs->posts as $post ){
         
         // Get the schema loaded in_admin_footer

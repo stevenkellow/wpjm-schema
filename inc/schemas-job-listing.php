@@ -11,7 +11,6 @@ if( ! defined( 'ABSPATH') ){ exit; }
 global $post;
 
 // Only show the schema if the job is active as per Google guidance - https://developers.google.com/search/docs/data-types/job-postings#create-job-postings
-
 if( $post->post_status == 'publish' ){
 
 	// Get all the relevant info about the job listings and get the schema

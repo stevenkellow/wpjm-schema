@@ -8,7 +8,7 @@
 if( ! defined( 'ABSPATH') ){ exit; }
 
 // Bring in the wpjm_get_the_job_types function if it isn't included in WPJM already
-if( version_compare( JOB_MANAGER_VERSION, '1.27.0', '<') ) ){
+if( version_compare( JOB_MANAGER_VERSION, '1.27.0', '<') ){
 /**
  * Gets the job type for the listing. - as defined here https://github.com/Automattic/WP-Job-Manager/blob/d9d1d79bf9b1ebf3ab43c06bc8c3e7aa9644519e/wp-job-manager-template.php
  *
@@ -98,6 +98,7 @@ function wpjm_schema_get_the_job_types( $post_id ){
 	$attached_job_types = wpjm_get_the_job_types( $post_id );
 	$job_type_count = count( $attached_job_types );
 	
+	// If we have more than one job type to output
 	if( $job_type_count > 1 ){
 		
 		// Open the job types array
@@ -137,6 +138,7 @@ function wpjm_schema_get_the_job_categories( $post_id ){
 	$attached_job_categories = wp_get_post_terms($post_id, 'job_listing_category', array('fields' => 'names'));
 	$job_category_count = count( $attached_job_categories );
 	
+	// If we have more than one category to output
 	if( $job_category_count > 1 ){
 		
 		// Open the job categories array

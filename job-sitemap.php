@@ -60,15 +60,15 @@ function wpjm_schema_generate_sitemap() {
         fclose($fp);
 
         // Ping Google by default
-        $ping_google = true;
+        $ping_search_engines = true;
 
         // Add filter so that users turn off the Google ping if they want
         if( has_filter('wpjm_schema_ping_search_engines') ) {
-            $ping_google = apply_filters('wpjm_schema_ping_search_engines', $ping_google);
+            $ping_search_engines = apply_filters('wpjm_schema_ping_search_engines', $ping_search_engines);
         }
 
         // If we want to ping Google
-        if( $ping_google === true ){
+        if( $ping_search_engines === true ){
 
             // Let Google know the sitemap has been updated
             wpjm_schema_search_engine_ping();
@@ -95,9 +95,10 @@ function wpjm_schema_search_engine_ping(){
 	// Set up the sitemap ping URLs
     $ping_urls = array( 
         'google' => 'http://www.google.com/ping?sitemap=' . $sitemap_url,
-        'bing' => 'http://www.bing.com/ping?sitemap=' . $sitemap_url );
+        'bing' => 'http://www.bing.com/ping?sitemap=' . $sitemap_url 
+	);
 
-    // Set up the arguments - we don't want SSLverify incase the site doesn't support it
+    // Set up the arguments - we don't want SSLverify as the sitemap endpoints don't use it
     $args = array( 'sslverify' => false );
     
     // Set the response success variable
