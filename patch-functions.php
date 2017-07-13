@@ -8,11 +8,11 @@
 if( ! defined( 'ABSPATH') ){ exit; }
 
 // Bring in the wpjm_get_the_job_types function if it isn't included in WPJM already
-if( ! function_exists( 'wpjm_get_the_job_types' ) ){
+if( version_compare( JOB_MANAGER_VERSION, '1.27.0', '<') ) ){
 /**
  * Gets the job type for the listing. - as defined here https://github.com/Automattic/WP-Job-Manager/blob/d9d1d79bf9b1ebf3ab43c06bc8c3e7aa9644519e/wp-job-manager-template.php
  *
- * @since WPJM 1.26.3
+ * @since WPJM 1.27
  *
  * @param int|WP_Post $post (default: null).
  * @return false|array
@@ -34,7 +34,7 @@ function wpjm_get_the_job_types( $post = null ) {
 	/**
 	 * Filter the returned job types for a post.
 	 *
-	 * @since 1.26.3
+	 * @since WPJM 1.27
 	 *
 	 * @param array   $types
 	 * @param WP_Post $post
