@@ -29,10 +29,15 @@ $job_schema_array = array( '@context' => 'http://schema.org', '@type' => 'JobPos
 
 	// Add the closing/expiry date
 	$app_deadline = get_post_meta($post->ID, '_application_deadline', true); // If the application deadline plugin exists, use set deadline
-	if( ! $app_deadline ){
+	
+    // Add the expiry date if we couldn't get an application deadline
+    if( empty( $app_deadline ) ){
 		$app_deadline = get_post_meta($post->ID, '_job_expires', true); // If no deadline set, just get the job expiry date
 	}
-	$job_schema_array['validThrough'] = $app_deadline;
+    // If we've found either the application deadline or job expiry then add it - NOTE: Google requires a job expiry, though WPJM does not
+    if( ! empty( $app_deadline ) ){
+	   $job_schema_array['validThrough'] = $app_deadline;
+    }
 
 	// Check for the job title
 	if( ! empty( $post->post_title ) ){
