@@ -3,7 +3,7 @@
 Plugin Name: WPJM Schema
 Plugin URI: https://wordpress.org/plugins/wpjm-schema/
 Description: Adds Schema.org markup to your WP Job Manager pages
-Version: 0.4.2
+Version: 0.4.3
 Author: Steven Kellow
 Author URI: https://www.stevenkellow.com
 Text Domain: wpjm-schema
