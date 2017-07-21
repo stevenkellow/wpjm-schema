@@ -7,14 +7,6 @@
 // Exit if accessed directly
 if( ! defined( 'ABSPATH') ){ exit; }
 
-// Run the sitemap generator when a new job is published, updated or the plugin is installed
-add_action( 'publish_job_listing', 'wpjm_schema_generate_sitemap' );
-add_action( 'save_post_job_listing', 'wpjm_schema_generate_sitemap' );
-register_activation_hook(  __FILE__, 'wpjm_schema_generate_sitemap' );
-
-// Add a CRON job to run with the expired jobs hook to make sure sitemap is updated if jobs expire
-add_action( 'job_manager_check_for_expired_jobs', 'wpjm_schema_generate_sitemap' );
-
 /**
  *  wpjm_schema_generate_sitemap
  *
@@ -125,4 +117,17 @@ function wpjm_schema_search_engine_ping(){
     // Send a response back
     return $data;
 
+}
+
+/**
+ *  wpjm_schema_remove_sitemap
+ *
+ *  Function to remove the sitemap
+ *
+ *  @since 0.4.4
+ */
+function wpjm_schema_remove_sitemap(){
+	
+	wp_delete_file( ABSPATH . 'job-sitemap.xml' );
+	
 }

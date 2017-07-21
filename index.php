@@ -3,7 +3,7 @@
 Plugin Name: WPJM Schema
 Plugin URI: https://wordpress.org/plugins/wpjm-schema/
 Description: Adds Schema.org markup to your WP Job Manager pages
-Version: 0.4.3
+Version: 0.4.4
 Author: Steven Kellow
 Author URI: https://www.stevenkellow.com
 Text Domain: wpjm-schema
@@ -26,7 +26,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     add_action('wp_head', 'wpjm_schema_print');
 	
 	/**
-	 *  wpjm_schema_generate_sitemap
+	 *  wpjm_schema_print
 	 *
 	 *  Function to create the sitemap
 	 *
@@ -81,6 +81,17 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
 	*/
 	include_once( plugin_dir_path( __FILE__ ) . 'job-sitemap.php' );
 	
+	// Run the sitemap generator when a new job is published, updated or the plugin is installed
+	add_action( 'publish_job_listing', 'wpjm_schema_generate_sitemap' );
+	add_action( 'save_post_job_listing', 'wpjm_schema_generate_sitemap' );
+	register_activation_hook(  __FILE__, 'wpjm_schema_generate_sitemap' );
+
+	// Delete the sitemap if the plugin is deactivated
+	register_deactivation_hook(  __FILE__, 'wpjm_schema_remove_sitemap' );
+
+	// Add a CRON job to run with the expired jobs hook to make sure sitemap is updated if jobs expire
+	add_action( 'job_manager_check_for_expired_jobs', 'wpjm_schema_generate_sitemap' );
+	
     
     
 } else {
@@ -98,7 +109,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
             <p><?php _e( 'WP Job Manager plugin not installed, please install to activate JobPosting schema', 'wpjm-schema' ); ?></p>
         </div>
         <?php
-        }  
+        }
     
     }
     
