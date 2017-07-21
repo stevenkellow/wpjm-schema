@@ -1,6 +1,6 @@
 # WPJM Schema
 Contributors: stevenkellow  
-Tags: jobs, wpjobmanager, wpjm, schema  
+Tags: jobs, wpjobmanager, wpjm, schema, seo  
 Requires at least: 4.4  
 Tested up to: 4.8  
 Stable tag: 0.4.3    
