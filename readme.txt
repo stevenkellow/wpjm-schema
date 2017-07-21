@@ -41,58 +41,7 @@ The plugin works straight out of the box, so there\'s no other options to config
 == Filters/Customisation ==
 There are filters you can use by placing code in a child theme or functionality plugin to modify how WPJM schema works.
 
-==== Filter Schema values ====
-You can easily filter the schema values, for both job postings and the website, so they correspond with what you want them to be.  The schema is created in an array format, following the relevant specifications for [WebSites](schema.org/WebSite) or [JobPostings](schema.org/JobPosting), so as long as you edit in that same method then it should work.
-
-The filters are: `wpjm_schema_custom_job_fields` (JobPosting) / `wpjm_schema_custom_website_fields` (WebSite)
-
-For example: to change "name" on the first level of the schema you can just filter `$job_schema['name']`.  If you want to change the identifier value, change `$job_schema['identifier']['value']`.
-
-	// Example of job schema change - setting identifier value to something in post meta
-	add_filter( 'wpjm_schema_custom_job_fields', 'my_custom_schema_filter' );
-	function my_custom_schema_filter( $job_schema ){
-
-		global $post;
-
-		$job_schema['identifier']['value'] = get_post_meta( $post->ID, 'custom_job_reference', true );
-		
-		return $job_schema;
-		
-	}
-	// Example of web schema change
-	add_filter( 'wpjm_schema_custom_website_fields', 'my_custom_web_schema_filter' );
-	function my_custom_web_schema_filter( $website_schema ){
-
-		// Add a social link to the sameAs array
-		$website_schema['sameAs'][] = 'https://twitter.com/mysitetwitteracount';
-		
-		return $website_schema;
-		
-	}
-
-==== Filter Schema types ====
-We've also included three filters you can use to optionally hide schema: `wpjm_schema_show_job_schema` / `wpjm_show_website_schema` / `wpjm_schema_show_multi_job_schema` - note that the first two will default to true while `wpjm_schema_show_multi_job_schema` defaults to false.
-
-	// Example to hide website schema
-	add_filter( 'wpjm_schema_show_website_schema', 'hide_web_schema_function');
-	function hide_web_schema_function( $show_schema ){
-		return false;
-	}
-
-	// Example to hide website schema
-	add_filter( 'wpjm_schema_show_multi_job_schema', 'show_multi_job_schema');
-	function show_multi_job_schema( $show_multi_job_schema ){
-		return true;
-	}
-
-==== Filter sitemap creation ====
-Finally, there are two filters that apply to the sitemap generation.  One filter `wpjm_schema_generate_job_sitemap` will turn on/off the sitemap generator and `wpjm_schema_ping_search_engines` will turn on/off the ability to ping Google with the changes made to the sitemap.
-
-	// Example to hide website schema
-	add_filter( 'wpjm_schema_ping_search_engines', 'turn_google_ping_off');
-	function turn_google_ping_off( $ping_google ){
-		return false;
-	}
+You can read about them all here: https://blog.stevenkellow.com/wpjm-job-schema-plugin-for-wordpress/#filters
 
 == Changelog ==
 ===== v 0.4.4 =====
