@@ -95,6 +95,13 @@ Finally, there are two filters that apply to the sitemap generation.  One filter
 	}
 
 == Changelog ==
+===== v 0.4.4 =====
+- WP Job Manager 1.27 support
+- Fix sitemap loading (so creates on install/update and deletes on deactivate)
+- Fix job expiry (so those with blank job expiry doesn't load validThrough attribute)
+- Fix company logo output
+- Fix geolocation settings (check if they exist before loading)
+
 ==== v 0.4 ====
 - Add filters to allow customisation of field values and types, schemas included and sitemap functionality.
 - Make sure schema is output correctly on multi-job pages
