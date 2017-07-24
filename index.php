@@ -28,7 +28,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
 	/**
 	 *  wpjm_schema_print
 	 *
-	 *  Function to create the sitemap
+	 *  Function to print the schema in the document header
 	 *
 	 *  @since 0.2
 	 *  @last_modified 0.4

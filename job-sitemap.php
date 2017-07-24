@@ -28,6 +28,7 @@ function wpjm_schema_generate_sitemap() {
     // If we want to create the sitemap
     if( $create_sitemap === true ){
   
+        // Set up sitemap header
         $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
         $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
@@ -44,6 +45,7 @@ function wpjm_schema_generate_sitemap() {
 
         }
 
+        // Close the sitemap URL set
         $sitemap .= '</urlset>';
 
         // Write the sitemap to yoursite.com/job-sitemap.xml
