@@ -3,7 +3,7 @@ Contributors: stevenkellow
 Tags: jobs, wpjobmanager, wpjm, schema, seo
 Requires at least: 4.4
 Tested up to: 4.8
-Stable tag: 0.4.4
+Stable tag: 0.5
 License: GPL
 
 Add Schema.org markup to your WP Job Manager pages and job listings.
@@ -44,6 +44,11 @@ There are filters you can use by placing code in a child theme or functionality 
 You can read about them all here: https://blog.stevenkellow.com/wpjm-job-schema-plugin-for-wordpress/#filters
 
 == Changelog ==
+==== v 0.5 ====
+- WP Job Manager 1.28 support
+-- Makes sure that this plugin doesn't overlap with WP Job Managers' new schema functions
+- Move schema to footer for faster page loading
+
 ===== v 0.4.4 =====
 - WP Job Manager 1.27 support
 - Fix sitemap loading (so creates on install/update and deletes on deactivate)

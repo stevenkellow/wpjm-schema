@@ -3,7 +3,7 @@
 Plugin Name: WPJM Schema
 Plugin URI: https://wordpress.org/plugins/wpjm-schema/
 Description: Adds Schema.org markup to your WP Job Manager pages
-Version: 0.4.4
+Version: 0.5
 Author: Steven Kellow
 Author URI: https://www.stevenkellow.com
 Text Domain: wpjm-schema
@@ -22,23 +22,40 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
 	// Call in custom functions for output
 	include_once( plugin_dir_path( __FILE__ ) . 'patch-functions.php' );
     
-    // Add custom schema info to the WordPress header
-    add_action('wp_head', 'wpjm_schema_print');
-	
-	/**
+    /*
+    *   If we're on WPJM version 1.28 or above then it includes schema on its own
+    *   We want this plugin to be able to do more than just stock schemas
+    *   So we're going to remove the default WPJM schemas
+    *   If the defaults work for you, this plugin can be uninstalled, else use this
+    */
+    if( version_compare( JOB_MANAGER_VERSION, '1.28.0', '>=') ){
+        //Get the current post
+        global $post;
+        apply_filters( 'wpjm_output_job_listing_structured_data', false, $post );
+    }
+    
+    /**
 	 *  wpjm_schema_print
 	 *
-	 *  Function to print the schema in the document header
+	 *  Function to print the schema in the document footer
 	 *
 	 *  @since 0.2
-	 *  @last_modified 0.4
+	 *  @last_modified 0.5
 	 */
+    add_action('wp_footer', 'wpjm_schema_print');
     function wpjm_schema_print(){
+        
+        // Check if WPJM has it's own schema built-in
+        if( version_compare( JOB_MANAGER_VERSION, '1.28.0', '<') ){
+            $wpjm_native_schema = true;
+        } else {
+            $wpjm_native_schema = false;
+        }
 
         // Check if the current page is a jobs overview page - deprecated (false by default) because Google doesn't want us to do this: https://developers.google.com/search/docs/data-types/job-postings#guidelines
         $show_multi_job_schema = false;
 
-        // Add filter so that users turn off the sitemap generation if they want
+        // Add filter so that users turn on the multi job schema if they want
         if( has_filter('wpjm_schema_show_multi_job_schema' ) ) {
             $show_multi_job_schema = apply_filters( 'wpjm_schema_show_multi_job_schema', $show_multi_job_schema );
         }
@@ -76,7 +93,7 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
 	
 	
 	/*
-	*  Call in the sitemap generator
+	*  Call in the sitemap generator - we check if it should be activated inside the function
 	*
 	*/
 	include_once( plugin_dir_path( __FILE__ ) . 'job-sitemap.php' );

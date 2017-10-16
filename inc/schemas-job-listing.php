@@ -16,8 +16,8 @@ if( $post->post_status == 'publish' ){
 	// Get all the relevant info about the job listings and get the schema
 	include_once( plugin_dir_path( __FILE__ ) . 'outputs/schema-single-job.php' );
 	
-	// Output the schema
-	echo '<script type="application/ld+json">' . json_encode( $job_schema_array ) . '</script>';
+    // Output the schema
+    echo '<script type="application/ld+json">' . json_encode( $job_schema_array ) . '</script>';
     
 	// Show web schema by default
 	$show_web_schema = true;
