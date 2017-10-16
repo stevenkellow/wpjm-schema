@@ -31,7 +31,10 @@ if( is_plugin_active( 'wp-job-manager/wp-job-manager.php') ){
     if( version_compare( JOB_MANAGER_VERSION, '1.28.0', '>=') ){
         //Get the current post
         global $post;
-        apply_filters( 'wpjm_output_job_listing_structured_data', false, $post );
+        add_filter( 'wpjm_output_job_listing_structured_data', 'wpjm_schema_remove_default_data', 15 );
+        function wpjm_schema_remove_default_data( $data = false ){
+            return false;
+        }
     }
     
     /**
