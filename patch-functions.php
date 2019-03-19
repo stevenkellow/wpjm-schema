@@ -77,7 +77,7 @@ function wpjm_schema_output_friendly_job_type( $specified_job_type ){
 		default:
 			$job_type = 'OTHER';
 	}
-	
+
     // Return the formatted job type
 	return $job_type;
 }
@@ -97,28 +97,31 @@ function wpjm_schema_get_the_job_types( $post_id ){
 	// Check how many job types there are
 	$attached_job_types = wpjm_get_the_job_types( $post_id );
 	$job_type_count = count( $attached_job_types );
-	
+
 	// If we have more than one job type to output
 	if( $job_type_count > 1 ){
-		
+
 		// Open the job types array
 		$job_type = array();
-		
+
 		// Add each individual job type to an array
 		foreach( $attached_job_types as $individual_job_type ){
-            
-            // Add formatted job type to our array string			
+
+            // Add formatted job type to our array string
 			$job_type[] = wpjm_schema_output_friendly_job_type( $individual_job_type->name );
-			
+
 		}
-		
-	} else {
-		
+
+	} elseif( $job_type_count == 1 ) {
+
 		// For the one job type, output the friendly version
 		$job_type = wpjm_schema_output_friendly_job_type( $attached_job_types[0]->name );
-		
+
+	} else {
+
+		$job_type = false;
 	}
-	
+
     // Return the job type
 	return $job_type;
 }
@@ -137,29 +140,29 @@ function wpjm_schema_get_the_job_categories( $post_id ){
 	// Check how many job categories there are
 	$attached_job_categories = wp_get_post_terms($post_id, 'job_listing_category', array('fields' => 'names'));
 	$job_category_count = count( $attached_job_categories );
-	
+
 	// If we have more than one category to output
 	if( $job_category_count > 1 ){
-		
+
 		// Open the job categories array
 		$job_category = array();
-		
+
 		// Add each individual job category to an array
 		foreach( $attached_job_categories as $individual_job_category ){
-            
-            // Add formatted job category to our array string			
+
+            // Add formatted job category to our array string
 			$job_category[] = $individual_job_category;
-			
+
 		}
-		
-		
+
+
 	} else {
-		
+
 		// For the one job category, output it
 		$job_category = $attached_job_categories[0];
-		
+
 	}
-	
+
     // Return the job category
 	return $job_category;
 }
