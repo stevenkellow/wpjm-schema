@@ -88,7 +88,7 @@ function wpjm_schema_output_friendly_job_type( $specified_job_type ){
  *  Runs the logic to decide whether to output job types as an array or string
  *
  *  @since 0.2
- *  @last_modified 0.4
+ *  @last_modified 0.6
  *
  *  @param int $post_id - the current post in the loop
  *  @return string $job_type - Converted job type as array or string
@@ -112,6 +112,7 @@ function wpjm_schema_get_the_job_types( $post_id ){
 
 		}
 
+        // If we have only one job type
 	} elseif( $job_type_count == 1 ) {
 
 		// For the one job type, output the friendly version
@@ -155,13 +156,17 @@ function wpjm_schema_get_the_job_categories( $post_id ){
 
 		}
 
-
-	} else {
+        // If we only have one job category
+	} elseif( $job_category_count == 1 ) {
 
 		// For the one job category, output it
 		$job_category = $attached_job_categories[0];
 
-	}
+	} else {
+        
+        $job_category = false;
+        
+    }
 
     // Return the job category
 	return $job_category;

@@ -123,6 +123,12 @@ $job_schema_array = array( '@context' => 'http://schema.org', '@type' => 'JobPos
 	if( ! empty( $country ) ){
 		$job_address_array['addressCountry'] = $country;
 	}
+
+    // Add post code if we have it
+    $post_code = get_post_meta( $post->ID, 'geolocation_postcode', true );
+    if( ! empty( $post_code ) ){
+        $job_address_array['postalCode'] = $post_code;
+    }
 	
 	// Add the address schema to the location array
 	$job_location_array['address'] = $job_address_array;
