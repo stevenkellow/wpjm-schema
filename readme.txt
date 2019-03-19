@@ -11,7 +11,7 @@ Add Schema.org markup to your WP Job Manager pages and job listings.
 == Description ==
 Schema.org markup is a way of giving search engines more information about your website so that they can automatically process your pages and display that to users.
 
-Google is now supporting JobPostings schemas, and will eventually use these to produce dedicated job listing search results.  That's why it's important that YOUR site has schema markup installed so that your listings will appear.
+Google is now supporting JobPostings schemas, and uses these to produce dedicated job listing search results.  That's why it's important that YOUR site has schema markup installed so that your listings will appear.
 
 This simple plugin will work alongside your WP Job Manager install and provide this schema for you, with no fuss and no editing required.
 
@@ -48,6 +48,7 @@ You can read about them all here: https://blog.stevenkellow.com/wpjm-job-schema-
 - Support up to WP Job Manager and WP 5.1.1
 - Add fixes in the patch functions (props to @tomslominski)
 - Added postalCode to the schema
+- Write sitemap using WP_Filesystem
 
 ==== v 0.5 ====
 - WP Job Manager 1.28 support

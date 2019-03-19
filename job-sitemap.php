@@ -49,9 +49,16 @@ function wpjm_schema_generate_sitemap() {
         $sitemap .= '</urlset>';
 
         // Write the sitemap to yoursite.com/job-sitemap.xml
-        $fp = fopen(ABSPATH . 'job-sitemap.xml', 'w');
-        fwrite($fp, $sitemap);
-        fclose($fp);
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        
+        WP_Filesystem();
+        global $wp_filesystem;
+        
+        $wp_filesystem->put_contents(
+          ABSPATH . 'job-sitemap.xml',
+          $sitemap,
+          FS_CHMOD_FILE // predefined mode settings for WP files
+        );
 
         // Ping Google by default
         $ping_search_engines = true;
